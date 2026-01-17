@@ -42,8 +42,6 @@
                     <li data-menuanchor="section8"><a href="#section8">Contact</a></li>
                 </ul>
             </div>
-            <div>
-            </div>
         </header>
 
         <div class="fullpage">
@@ -612,6 +610,11 @@
             });
             $(".fp-watermark").hide();
         })
+
+        function control_mouse() {
+            $(document).bind("contextmenu", function (e) { return false; });  // 마우스 우 클릭 금지
+            $(document).bind('selectstart', function () { return false; }); // 드래그 클릭 금지
+        }
     </script>
 </body>
 
