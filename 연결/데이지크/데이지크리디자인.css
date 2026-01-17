@@ -1,0 +1,1023 @@
+@font-face {
+    font-family: "cream";
+    src: url("./font/Cream\ Cake.otf");
+}
+
+@font-face {
+    font-family: "trendy";
+    src: url("./font/Amelaryas.otf");
+}
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #5e2e2e
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+li {
+    list-style: none;
+}
+
+#wrap {
+    width: 1920px;
+    margin: 0 auto;
+    /* background-color: pink; */
+}
+
+/* 헤더 */
+.headerwrap {
+    position: fixed;
+    left: 50%;
+    transform: translateX( -50% );
+    z-index: 1;
+    width: 1920px;
+    height: 50px;
+    padding-top: 20px;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.headerwrap a:hover {opacity: 0.5;}
+
+header {
+    position: relative;
+    width: 1920px;
+    height: 50px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+header>h1 {
+    width: 150px;
+    height: 50px;
+    float: left;
+    margin-top: -5px;
+    margin-left: 20px;
+}
+
+header>h1 img {
+    width: 90%;
+    height: 80%;
+}
+
+.util {
+    position: absolute;
+    top: 4px;
+    right: 0px;
+    width: 400px;
+    height: 50px;
+    float: right;
+    padding-right: 20px;
+    box-sizing: border-box;
+}
+
+.util a {
+    width: 80px;
+    height: 55px;
+    display: inline-block;
+}
+
+.util a>img {
+    position: absolute;
+    left: 200px;
+    width: 20px;
+    right: 20px;
+}
+
+.util input {
+    width: 80px;
+    height: 25px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #5e2e2e;
+    background: transparent url(./img/픽토그램/search.png) no-repeat right top / auto 25px;
+    font-size: 20px;
+    cursor: pointer;
+    padding-right: 30px;
+}
+
+.util input img {
+    width: 20px;
+    height: 25px;
+}
+
+.gnb {
+    position: absolute;
+    top: 0px;
+    left: 270px;
+    width: 1500px;
+    height: 35px;
+    line-height: 35px;
+    float: left;
+}
+
+.gnb span {
+    display: block;
+    width: 50%;
+    height: 1px;
+    background-color: #5e2e2e;
+    margin: 0 auto;
+    display: none;
+}
+
+.gnb>li {
+    float: left;
+    width: 300px;
+    line-height: 35px;
+    text-align: center;
+}
+
+.lnb {
+    display: none;
+    margin-top: 15px;
+}
+
+.gnb>li:hover .lnb {
+    display: block;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* 메인 */
+main {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+#slide1,
+#slide2,
+#slide3,
+#slide4,
+#slide5,
+#slide6 {
+    display: none;
+}
+
+main>ul {
+    width: 600%;
+    transition: margin-left 0.7s;
+}
+
+main li {
+    width: calc(100%/6);
+    height: 950px;
+    float: left;
+}
+
+main li:nth-of-type(1) {
+    background: url(./img/main1.jpeg) no-repeat center / cover;
+}
+
+main li:nth-of-type(2) {
+    background: url(./img/main2.jpeg) no-repeat center / cover;
+}
+
+main li:nth-of-type(3) {
+    background: url(./img/main4.jpeg) no-repeat center / cover;
+}
+
+main li:nth-of-type(4) {
+    background: url(./img/main5.jpeg) no-repeat center / cover;
+}
+
+main li:nth-of-type(5) {
+    background: url(./img/main7.jpeg) no-repeat center / cover;
+}
+
+main li:nth-of-type(6) {
+    background: url(./img/main14.jpeg) no-repeat center / cover;
+}
+
+.labelwrap {
+    width: 100%;
+    position: absolute;
+    bottom: 10px;
+    text-align: center;
+}
+
+.labelwrap>label {
+    display: inline-block;
+    width: 150px;
+    height: 5px;
+    background-color: white;
+    transition: width 0.5s;
+    cursor: pointer;
+}
+
+#slide1:checked~main>ul {
+    margin-left: 0;
+}
+
+#slide2:checked~main>ul {
+    margin-left: -100%;
+}
+
+#slide3:checked~main>ul {
+    margin-left: -200%;
+}
+
+#slide4:checked~main>ul {
+    margin-left: -300%;
+}
+
+#slide5:checked~main>ul {
+    margin-left: -400%;
+}
+
+#slide6:checked~main>ul {
+    margin-left: -500%;
+}
+
+#slide1:checked~main .labelwrap label:nth-of-type(1) {
+    background-color: #5e2e2e;
+    width: 250px;
+}
+
+#slide2:checked~main .labelwrap label:nth-of-type(2) {
+    background-color: #5e2e2e;
+    width: 250px;
+}
+
+#slide3:checked~main .labelwrap label:nth-of-type(3) {
+    background-color: #5e2e2e;
+    width: 250px;
+}
+
+#slide4:checked~main .labelwrap label:nth-of-type(4) {
+    background-color: #5e2e2e;
+    width: 250px;
+}
+
+#slide5:checked~main .labelwrap label:nth-of-type(5) {
+    background-color: #5e2e2e;
+    width: 250px;
+}
+
+#slide6:checked~main .labelwrap label:nth-of-type(6) {
+    background-color: #5e2e2e;
+    width: 250px;
+}
+
+main ul label {
+    display: none;
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+}
+
+main ul label:first-of-type {
+    left: 10px;
+    top: 50%;
+    background: url(./img/픽토그램/left.png) no-repeat center / cover;
+}
+
+main ul label:last-of-type {
+    right: 10px;
+    top: 50%;
+    background: url(./img/픽토그램/right.png) no-repeat center / cover;
+}
+
+#slide1:checked~main li:nth-of-type(1) label {
+    display: block;
+}
+
+#slide2:checked~main li:nth-of-type(2) label {
+    display: block;
+}
+
+#slide3:checked~main li:nth-of-type(3) label {
+    display: block;
+}
+
+#slide4:checked~main li:nth-of-type(4) label {
+    display: block;
+}
+
+#slide5:checked~main li:nth-of-type(5) label {
+    display: block;
+}
+
+#slide6:checked~main li:nth-of-type(6) label {
+    display: block;
+}
+
+main label:hover {
+    opacity: 0.8;
+}
+
+/* 베스트 */
+.best {
+    width: 100%;
+    height: 750px;
+    color: #5e2e2e;
+    margin: 0 auto;
+    /* background-color: aquamarine; */
+}
+
+.best>h1 {
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+.best>h1 img {
+    width: 100%;
+    height: 100%;
+}
+
+.best>h2 {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 40px;
+    font-weight: 100;
+}
+
+.bestwrap {
+    margin: 0 auto;
+    width: 1920px;
+}
+
+.bestwrap>div {
+    float: left;
+    width: 350px;
+    text-align: center;
+    margin-left: 30px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.bestwrap>div:first-of-type {
+    margin-left: 20px;
+}
+
+.bestwrap a {
+    display: inline-block;
+    width: 350px;
+    height: 400px;
+}
+
+.bestwrap p {
+    cursor: pointer;
+    margin-top: 25px;
+    line-height: 25px;
+}
+
+.bestwrap img {
+    width: 350px;
+    height: 400px;
+    transition: opacity 0.4s;
+}
+
+.bestwrap>div:nth-of-type(1)>a:hover {
+    background: url(./img/best1-1.jpg) center / cover;
+}
+
+.bestwrap>div:nth-of-type(1)>a:hover img {
+    opacity: 0;
+}
+
+.bestwrap>div:nth-of-type(2)>a:hover {
+    background: url(./img/best2-1.jpg) center / cover;
+}
+
+.bestwrap>div:nth-of-type(2)>a:hover img {
+    opacity: 0;
+}
+
+.bestwrap>div:nth-of-type(3)>a:hover {
+    background: url(./img/best3-1.jpg) center / cover;
+}
+
+.bestwrap>div:nth-of-type(3)>a:hover img {
+    opacity: 0;
+}
+
+.bestwrap>div:nth-of-type(4)>a:hover {
+    background: url(./img/best4-1.jpg) center / cover;
+}
+
+.bestwrap>div:nth-of-type(4)>a:hover img {
+    opacity: 0;
+}
+
+.bestwrap>div:nth-of-type(5)>a:hover {
+    background: url(./img/best5-1.jpg) center / cover;
+}
+
+.bestwrap>div:nth-of-type(5)>a:hover img {
+    opacity: 0;
+}
+
+/* 컬렉션 */
+.collection {
+    width: 1920px;
+    height: 1900px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.collectionhead {
+    height: 100%;
+    background: url(./img/스윗하트\ 전체샷6.png) no-repeat center / cover;
+    text-align: center;
+}
+
+.collectionhead>h1 {
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+.collectionhead>h1 img {
+    width: 100%;
+    height: 100%;
+}
+
+.collectionhead>h2 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 40px;
+    font-weight: 100;
+}
+
+.collectionhead>h3 {
+    position: absolute;
+    top: 350px;
+    left: 420px;
+    font-family: "trendy";
+    font-size: 130px;
+    font-weight: 100;
+    color: pink;
+    text-shadow: 1px 1px 10px #5e2e2e59;
+    line-height: 1.9;
+    cursor: pointer;
+}
+
+.collectionhead .button {
+    position: absolute;
+    left: 855px;
+    top: 950px;
+    width: 200px;
+    height: 40px;
+    border: 1px solid #5e2e2e;
+    padding-left: 10px;
+    cursor: pointer;
+    color: #5e2e2e;
+    font-size: 16px;
+    line-height: 40px;
+}
+
+.collectionhead .button:hover {
+    background-color: #5e2e2e42;
+}
+
+.collectionbody {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.collectionbody>div {
+    width: 400px;
+    height: 500px;
+    float: left;
+    margin: 30px 168px;
+    overflow: hidden;
+    position: relative;
+}
+
+.collectionbody img {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s;
+}
+
+.collectionbody>div:nth-of-type(1),
+.collectionbody>div:nth-of-type(3) {
+    margin: 30px 0;
+}
+
+.collectionbody>div:hover img {
+    transform: scale(1.2);
+}
+
+.collectionbody strong {
+    color: #5e2e2e;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 10px;
+    font-size: 25px;
+    font-style: italic;
+    font-weight: 400;
+}
+
+/* 무드 */
+.mood {
+    width: 1920px;
+    height: 1860px;
+    margin: 0 auto;
+    position: relative;
+    clear: both;
+}
+
+.moodWrap {
+    width: 100%;
+}
+
+.moodhead>h1 {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+.moodhead>h1 img {
+    width: 100%;
+}
+
+.moodhead>h2 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 40px;
+    font-weight: 100;
+    text-align: center;
+}
+
+.moodhead .button {
+    position: absolute;
+    left: 855px;
+    width: 200px;
+    height: 40px;
+    border: 1px solid #5e2e2e;
+    padding-left: 10px;
+    cursor: pointer;
+    color: #5e2e2e;
+    font-size: 16px;
+    line-height: 40px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.moodhead .button:hover {
+    background-color: #5e2e2e42;
+}
+
+.moodmain {
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    float: left;
+    margin-top: 100px;
+}
+
+.moodmain>div {
+    width: 140%;
+    height: 1600px;
+    position: relative;
+    right: 210px;
+    overflow: hidden;
+}
+
+.moodmain img {
+    width: 100%;
+}
+
+.moodwrap {
+    margin: 0 auto;
+    width: 50%;
+    float: right;
+    margin-top: 100px;
+}
+
+.moodwrap>div {
+    float: left;
+    width: 458px;
+    height: 535px;
+    text-align: center;
+    margin-left: 22px;
+    overflow: hidden;
+}
+
+.moodwrap>div:nth-of-type(5),
+.moodwrap>div:nth-of-type(6) {
+    margin-bottom: 0px;
+}
+
+.moodwrap a {
+    display: inline-block;
+    width: 380px;
+    height: 430px;
+}
+
+.moodwrap p {
+    cursor: pointer;
+    margin-top: 25px;
+    line-height: 25px;
+}
+
+.moodwrap img {
+    width: 380px;
+    height: 430px;
+    transition: 0.4s;
+}
+
+.moodwrap>div:nth-of-type(1)>a:hover {
+    background: url(./img/mood1-1.jpg) center / cover;
+    /* scale: 1.2; 고민 속도도*/
+}
+
+.moodwrap>div:nth-of-type(1)>a:hover img {
+    opacity: 0;
+}
+
+.moodwrap>div:nth-of-type(2)>a:hover {
+    background: url(./img/mood2-1.jpg) center / cover;
+}
+
+.moodwrap>div:nth-of-type(2)>a:hover img {
+    opacity: 0;
+}
+
+.moodwrap>div:nth-of-type(3)>a:hover {
+    background: url(./img/mood3-1.jpg) center / cover;
+}
+
+.moodwrap>div:nth-of-type(3)>a:hover img {
+    opacity: 0;
+}
+
+.moodwrap>div:nth-of-type(4)>a:hover {
+    background: url(./img/mood4-1.jpg) center / cover;
+}
+
+.moodwrap>div:nth-of-type(4)>a:hover img {
+    opacity: 0;
+}
+
+.moodwrap>div:nth-of-type(5)>a:hover {
+    background: url(./img/mood5-1.jpg) center / cover;
+}
+
+.moodwrap>div:nth-of-type(5)>a:hover img {
+    opacity: 0;
+}
+
+.moodwrap>div:nth-of-type(6)>a:hover {
+    background: url(./img/mood6-1.jpg) center / cover;
+}
+
+.moodwrap>div:nth-of-type(6)>a:hover img {
+    opacity: 0;
+}
+
+/* 추천 */
+.recommend {
+    width: 1920px;
+    height: 750px;
+    color: #5e2e2e;
+    margin: 80px auto 0;
+    background: url(./img/recommend배경4.png) no-repeat center / cover;
+    clear: both;
+}
+
+.recommend>h1 {
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+.recommend>h1 img {
+    width: 100%;
+    height: 100%;
+}
+
+.recommend>h2 {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 40px;
+    font-weight: 100;
+}
+
+.recommendwrap {
+    text-align: center;
+    width: 1920px;
+}
+
+.recommendwrap>div {
+    width: 380px;
+    display: inline-block;
+    text-align: center;
+    margin-left: 30px;
+    overflow: hidden;
+    margin-top: 20px;
+    padding-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.484);
+}
+
+.recommendwrap>div:nth-of-type(2) {
+    margin-left: 150px;
+    margin-right: 115px;
+}
+
+.recommendwrap a {
+    display: inline-block;
+    width: 380px;
+    height: 440px;
+}
+
+.recommendwrap p {
+    cursor: pointer;
+    margin-top: 10px;
+    line-height: 25px;
+}
+
+.recommendwrap img {
+    width: 380px;
+    height: 440px;
+    transition: 0.4s;
+}
+
+.recommendwrap>div:nth-of-type(1)>a:hover {
+    background: url(./img/recommend1-1.jpg) center / cover;
+}
+
+.recommendwrap>div:nth-of-type(1)>a:hover img {
+    opacity: 0;
+}
+
+.recommendwrap>div:nth-of-type(2)>a:hover {
+    background: url(./img/recommend2-1.jpg) center / cover;
+}
+
+.recommendwrap>div:nth-of-type(2)>a:hover img {
+    opacity: 0;
+}
+
+.recommendwrap>div:nth-of-type(3)>a:hover {
+    background: url(./img/recommend3-1.jpg) center / cover;
+}
+
+.recommendwrap>div:nth-of-type(3)>a:hover img {
+    opacity: 0;
+}
+
+/* sns */
+.sns {
+    width: 1920px;
+    height: 1200px;
+    margin: 0 auto;
+    clear: both;
+    position: relative;
+}
+
+.back {
+    width: 30%;
+    height: 1200px;
+    float: right;
+    background-color: rgba(255, 192, 203, 0.555);
+}
+
+.sns ul {
+    position: absolute;
+    top: 100px;
+    right: 450px;
+}
+
+.sns li {
+    width: 45px;
+    height: 45px;
+    margin-bottom: 20px;
+}
+
+.sns li img {
+    width: 100%;
+    height: 100%;
+}
+
+.sns li:hover {
+    opacity: 0.6;
+}
+
+.sns>.thumbnail {
+    position: absolute;
+    left: 400px;
+    top: 150px;
+    width: 380px;
+    height: 700px;
+    overflow: hidden;
+}
+
+.sns>.thumbnail img {
+    width: 100%;
+    height: 100%;
+}
+
+.sns>.play {
+    position: absolute;
+    left: 560px;
+    top: 460px;
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+}
+
+.sns>.play img {
+    width: 100%;
+    height: 100%;
+}
+
+.sns>.play:hover {
+    opacity: 0.5;
+}
+
+.sns>span {
+    font-size: 50px;
+    font-weight: 150;
+}
+
+.sns h1 {
+    font-size: 35px;
+    display: inline-block;
+}
+
+.sns h2 {
+    font-size: 30px;
+    display: inline;
+}
+
+.sns>.youtube {
+    position: absolute;
+    top: 320px;
+    left: 180px;
+    line-height: 1;
+    font-size: 35px;
+    transform: rotate(-90deg);
+}
+
+.sns>.follow {
+    position: absolute;
+    bottom: 240px;
+    left: 470px;
+    text-align: right;
+    line-height: 1;
+}
+
+.sns>.istpicture {
+    position: absolute;
+    right: 410px;
+    top: 410px;
+    width: 550px;
+    height: 550px;
+    overflow: hidden;
+}
+
+.sns>.istpicture img {
+    width: 100%;
+    transition: transform 0.5s;
+}
+
+.sns>.istpicture:hover img {transform: scale(1.2);}
+
+.sns>.instagram {
+    position: absolute;
+    top: 360px;
+    right: 560px;
+    line-height: 1;
+    font-size: 35px;
+}
+
+/* 푸터 */
+footer {
+    width: 1920px;
+    height: 500px;
+    background-color: rgba(230, 230, 230, 0.379);
+    font-size: 14px;
+    margin: 0 auto;
+    padding-top: 10px;
+    box-sizing: border-box;
+}
+
+footer a:hover {
+    opacity: 0.6;
+}
+
+.footerwrap {
+    width: 1920px;
+    margin: 0 auto;
+    line-height: 2.0;
+}
+
+.footerwrap>h1 {
+    margin-top: 50px;
+    margin-left: 120px;
+}
+
+.footerwrap h2 {
+    font-weight: 400;
+}
+
+.footer1 {
+    padding-top: 10px;
+    width: 300px;
+    float: left;
+    margin-left: 120px;
+    margin-right: 100px;
+}
+
+
+.footer2 {
+    width: 700px;
+    /* background-color: aqua; */
+    float: left;
+}
+
+.footer3 {
+    width: 180px;
+    /* background-color: blueviolet; */
+    float: left;
+    margin-left: 80px;
+}
+
+.footer3 img {
+    width: 14px;
+    height: 14px;
+}
+
+footer button {
+    width: 200px;
+    height: 40px;
+    border: 1px solid #5e2e2e;
+    padding-left: 10px;
+    cursor: pointer;
+    color: #5e2e2e;
+    font-size: 16px;
+    line-height: 40px;
+    margin-left: 100px;
+}
+
+footer button:hover {
+    background-color: #5e2e2e42;
+}
+
+.popup {
+    z-index: 2;
+    width: 400px;
+    height: 640px;
+    position: fixed;
+    top: 200px;
+    left: 10%;
+    text-align: center;
+    background-color: #f974a9;
+}
+
+.popup label {
+    cursor: pointer;
+    display: inline-block;
+    color: #fff;
+    font-size: 15px;
+    line-height: 30px;
+    font-weight: 400;
+}
+
+#notice {
+    display: none;
+}
+
+#notice:checked+.popup {
+    display: none;
+}
+
+aside {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #5e2e2e57;
+    color: #5e2e2e;
+    background-color: rgba(255, 255, 255, 0.521);
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    text-align: center;
+    line-height: 30px;
+    font-weight: 1000;
+    font-size: 25px;
+}
+aside a {
+    display: inline-block;
+    width: 100%;
+}
+
+aside:hover {background-color: #5e2e2e2f;}

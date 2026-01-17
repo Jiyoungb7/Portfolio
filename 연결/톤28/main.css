@@ -1,0 +1,607 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #a78b59;
+    background-color: #fffef1;
+    margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+li {
+    list-style: none;
+}
+
+h2 {
+    font-size: 40px;
+    font-weight: 300;
+    margin-top: 80px;
+    margin-bottom: 25px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+/* 헤더 */
+.headerwrap {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    width: 100%;
+    height: 50px;
+    padding-top: 20px;
+    color: white;
+}
+
+.headerwrap a:hover {
+    opacity: 0.5;
+}
+
+header {
+    position: relative;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+header>h1 {
+    height: 50px;
+    float: left;
+    margin-top: -5px;
+    margin-left: 20px;
+}
+
+header>h1 img {
+    width: 100%;
+    height: 60%;
+}
+
+#toggle {
+    display: none;
+}
+
+header label {
+    position: absolute;
+    width: 25px;
+    height: 15px;
+    top: 10px;
+    left: 2vw;
+    cursor: pointer;
+    display: none;
+}
+
+header label span {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #a78b59;
+}
+
+header label span:first-of-type {
+    top: 0;
+}
+
+header label span:nth-of-type(2) {
+    top: 50%;
+}
+
+header label span:last-of-type {
+    top: 100%;
+}
+
+#toggle:checked+label span:first-of-type {
+    transform: rotate(45deg);
+    top: 50%;
+}
+
+#toggle:checked+label span:nth-of-type(2) {
+    display: none;
+}
+
+#toggle:checked+label span:last-of-type {
+    transform: rotate(-45deg);
+    top: 50%;
+}
+
+.util {
+    float: right;
+    width: 10%;
+}
+
+.util>li {
+    line-height: 35px;
+    width: 50px;
+    float: left;
+}
+
+.util a>img {
+    width: 50%;
+}
+
+.gnb {
+    position: absolute;
+    top: 0px;
+    left: 220px;
+    width: 78%;
+}
+
+.gnb h3 {
+    font-weight: 500;
+}
+
+.gnb>li {
+    float: left;
+    margin-left: 20px;
+    width: 220px;
+    text-align: center;
+}
+
+.lnb {
+    display: none;
+    line-height: 5px;
+    line-height: 10px;
+}
+
+.gnb>li:hover .lnb {
+    display: block;
+}
+
+.lnb>li {
+    text-align: center;
+    margin-top: 22px;
+    padding-bottom: 10px;
+}
+
+.lnb a {
+    display: block;
+    width: 100%;
+}
+
+.peptacica {text-decoration-line: underline;
+text-decoration-style: wavy;}
+
+.headerwrap.sticky {
+    color: #a78b59;
+    font-weight: 500;
+    background-color: #fffef1;
+}
+
+.headerwrap.sticky header label span {
+    background-color: #a78b59;
+}
+
+.headerwrap.sticky .lnb {background-color: #fffef1;
+}
+
+
+/* 메인 */
+main {
+    width: 100%;
+    position: relative;
+}
+
+main video {
+    width: 100%;
+}
+
+.tell {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: white;
+    font-size: 30px;
+    font-weight: 300;
+}
+
+.tell b {
+    font-size: 50px;
+    font-weight: 400;
+}
+
+/* 베스트 */
+.best {
+    width: 100%;
+    text-align: center;
+}
+
+.bestwrap {
+    width: 100%;
+}
+
+.bestwrap img {
+    width: 60%;
+    margin-left: 20%;
+    transition: scale 0.5s;
+    overflow: hidden;
+}
+
+.bestwrap p {
+    margin-top: 15px;
+}
+
+.bestwrap img:hover {
+    scale: 1.1;
+}
+
+.slick-prev.slick-arrow::before {
+    content: "<";
+    color: #a78b59;
+    font-size: 60px;
+}
+
+.slick-prev.slick-arrow {
+    left: 25px;
+    /* z-index: 1; */
+}
+
+.slick-prev.slick-arrow:hover {
+    opacity: 0.5;
+}
+
+.slick-next.slick-arrow::before {
+    content: ">";
+    color: #a78b59;
+    font-size: 60px;
+}
+
+.slick-next.slick-arrow {
+    right: 25px;
+}
+
+.slick-next.slick-arrow:hover {
+    opacity: 0.5;
+}
+
+/* 브랜드 */
+.brand {
+    text-align: center;
+    width: 100%;
+}
+
+.brandwrap {
+    width: 100%;
+}
+
+.brandwrap>div {
+    display: inline-block;
+    width: 40%;
+    height: 500px;
+    position: relative;
+    overflow: hidden;
+    margin-left: -5px;
+}
+
+.brandwrap>div p {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-40%);
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 15px;
+    font-weight: 500;
+    color: white;
+}
+
+
+.brandwrap>div b {
+    font-size: 20px;
+    color: white;
+    border-bottom: 1px solid white;
+}
+
+.brandwrap img {
+    width: 100%;
+    height: 500px;
+}
+
+
+/* 구독 */
+.subscript {
+    width: 80%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.subscriptwrap {
+    width: 100%;
+}
+
+.subscriptright {
+    margin-top: 12%;
+    width: 50%;
+    float: right;
+}
+
+.subscriptright p {
+    font-size: 20px;
+    line-height: 30px;
+}
+
+.subscriptright b {
+    color: #a78b59;
+    border: 1px solid #a78b59;
+    padding: 8px 40px 10px;
+}
+
+.subscriptright h3 {
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.subscriptright b:hover {
+    background-color: #bca67e77;
+}
+
+.subscriptleft {
+    width: 50%;
+    float: left;
+}
+
+.subscriptleft img {
+    width: 100%;
+}
+
+/*더보기*/
+.more {
+    clear: both;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.morewrap {
+    width: 100%;
+    overflow: hidden;
+}
+
+.more p {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.morebottom p {
+    border-bottom: 1px solid white;
+}
+
+.moreleft span {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    border-bottom: 1px solid white;
+}
+
+.moreright span {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    border-bottom: 1px solid white;
+}
+
+.moreleft {
+    width: 50%;
+    height: 1000px;
+    overflow: hidden;
+    position: relative;
+    float: left;
+}
+
+.moreleft img {
+    width: 100%;
+    position: relative;
+    top: -150px;
+}
+
+.moreright {
+    width: 50%;
+    height: 1000px;
+    overflow: hidden;
+    position: relative;
+    float: right;
+}
+
+.moreright img {
+    width: 100%;
+    position: relative;
+    top: -150px;
+}
+
+.morebottom {
+    width: 100%;
+    height: 600px;
+    position: relative;
+    overflow: hidden;
+}
+
+.morebottom img {
+    width: 100%;
+}
+
+/*sns*/
+.sns {
+    width: 1920px;
+    margin: 0 auto;
+}
+
+.sns img {
+    transition: scale 0.5s;
+}
+
+.sns img:hover {
+    scale: 1.1;
+}
+
+.sns>.follow {
+    position: relative;
+    top: 150px;
+    left: 50px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 150px;
+    font-weight: 500;
+    line-height: 130px;
+}
+
+.snsup>li {
+    width: 440px;
+    height: 440px;
+    display: inline-block;
+    overflow: hidden;
+    margin-top: 200px;
+    margin-left: 15px;
+}
+
+.snsup>li:first-of-type {
+    margin-left: 50px;
+}
+
+.snsup>li img {
+    width: 100%;
+    position: relative;
+}
+
+.snsup>li:nth-of-type(1) img {
+    bottom: 10px;
+}
+
+.snsdown>li {
+    width: 440px;
+    height: 440px;
+    float: right;
+    overflow: hidden;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-bottom: 80px;
+}
+
+.snsdown>li:first-of-type {
+    margin-right: 50px;
+}
+
+.snsdown>li img {
+    width: 100%;
+    position: relative;
+}
+
+.snsdown>li:nth-of-type(2) img {
+    bottom: 40px;
+}
+
+.snsdown>li:nth-of-type(1) img {
+    bottom: 30px;
+}
+
+.sns>.insta {
+    position: relative;
+    top: -10px;
+    left: 50px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 70px;
+    font-weight: 500;
+    line-height: 130px;
+}
+
+
+/* 푸터 */
+footer {
+    clear: both;
+    width: 100%;
+    height: 250px;
+    background-color: #bca67e;
+    font-size: 14px;
+    padding-top: 10px;
+    color: white;
+}
+
+footer a:hover {
+    opacity: 0.6;
+}
+
+.footerwrap {
+    width: 85%;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+.footerwrap h2 {
+    font-weight: 400;
+}
+
+.footer1 {
+    width: 33%;
+    float: left;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.footer1 h4 {
+    font-size: 25px;
+    font-weight: 400;
+}
+
+
+.footer2 {
+    width: 40%;
+    /* background-color: aqua; */
+    float: left;
+}
+
+.footer3 {
+    width: 10%;
+    /* background-color: blueviolet; */
+    float: right;
+}
+
+.footer3 img {
+    width: 14px;
+    height: 14px;
+}
+
+hr {
+    clear: both;
+    background: white;
+    height: 1px;
+    border: 0;
+}
+
+/* top버튼 */
+#topBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 40px;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #a78b59;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: 700;
+    display: none;
+    font-size: 14px;
+    box-shadow: 0 0 2em 0 #8a795b;
+}
+
+#topBtn:hover {
+    opacity: 0.5;
+}

@@ -1,0 +1,564 @@
+@media screen and (max-width:768px) {
+    h2 {
+        font-size: 35px;
+    }
+
+    /* 메뉴바 */
+    .headerwrap {
+        background-color: #fffef1;
+    }
+
+    header>h1 {
+        float: left;
+        margin-top: -25px;
+        margin-left: 250px;
+    }
+
+    .util {
+        width: 20%;
+        margin-top: -20px;
+    }
+
+    .util>li {
+        line-height: 25px;
+        width: 40px;
+    }
+
+    header label {
+        display: block;
+    }
+
+    .gnb {
+        position: fixed;
+        width: 40%;
+        height: 100vh;
+        transition: left 0.8s;
+        left: -45%;
+        top: 70px;
+        background-color: #fffef1;
+        color: #a78b59;
+        padding-top: 30px;
+    }
+
+    .gnb>li {
+        float: none;
+        width: 80%;
+    }
+
+    .lnb {
+        height: 0;
+        display: block;
+        overflow: hidden;
+        transition: all 0.8s;
+        /* background-color:red; */
+    }
+
+    .gnb>li:hover .lnb {
+        height: 300px;
+    }
+
+    #toggle:checked~.gnb {
+        left: 0;
+    }
+
+    /*중간*/
+    .wrap h1 {
+        font-size: 22px;
+    }
+
+    .one {
+        width: 100%;
+        float: none;
+        height: 100%;
+    }
+    
+    .two {
+        width: 100%;
+        float: none;
+        height: 100%;
+    }
+    
+    .three {
+        width: 100%;
+        float: none;
+        height: 100%;
+    }
+    
+    .three>div {
+        width: 100%;
+        left: 0px;
+    }
+    
+    .four {
+        width: 100%;
+        float: none;
+        height: 100%;
+    }
+    
+    .foura {
+        width: 100%;
+        float: none;
+        height: 100%;
+    }
+    
+    .five {
+        width: 100%;
+        float: none;
+        height: 100%;
+    }
+    
+    .one img,
+    .two img,
+    .three img,
+    .four img,
+    .foura img,
+    .five img {
+        width: 100%;
+    }
+    
+    .six img,
+    .seven img {
+        width: 100%;
+    }
+    
+    .six img {
+        padding-bottom: 0px;
+    }
+    
+    .seven img {
+        padding-bottom: 40px;
+    }
+    
+    .eight img {width: 100%;}
+    
+    .nine {
+        width: 80%;
+        margin: 0 auto;
+    }
+    
+    .nine h1 {
+        margin-bottom: 0px;
+        line-height: 35px;
+    }
+
+    .boxwrap img {
+        width: 100%;
+    }
+
+    .boxwrap p {font-size: 13px;}
+    /* 푸터 */
+    footer {
+        height: auto;
+        padding-top: 30px;
+        padding-bottom: 80px;
+    }
+
+    .footer1 {
+        display: none;
+    }
+
+    .footer2 {
+        display: none;
+    }
+
+    .footer3 {
+        width: 100%;
+        font-size: 18px;
+        float: none;
+        margin: 0 auto;
+        margin-bottom: 20px;
+    }
+
+    .footer3 img {
+        width: 20px;
+        height: 20px;
+    }
+}@media screen and (max-width:384px) {
+    h2 {
+        font-size: 35px;
+    }
+
+    /* 메뉴바 */
+    .headerwrap {
+        background-color: #fffef1;
+    }
+
+    header>h1 {
+        float: left;
+        margin-top: -25px;
+        margin-left: 250px;
+    }
+
+    .util {
+        width: 20%;
+        margin-top: -20px;
+    }
+
+    .util>li {
+        line-height: 25px;
+        width: 40px;
+    }
+
+    header label {
+        display: block;
+    }
+
+    .gnb {
+        position: fixed;
+        width: 40%;
+        height: 100vh;
+        transition: left 0.8s;
+        left: -45%;
+        top: 70px;
+        background-color: #fffef1;
+        color: #a78b59;
+        padding-top: 30px;
+    }
+
+    .gnb>li {
+        float: none;
+        width: 80%;
+    }
+
+    .lnb {
+        height: 0;
+        display: block;
+        overflow: hidden;
+        transition: all 0.8s;
+        /* background-color:red; */
+    }
+
+    .gnb>li:hover .lnb {
+        height: 300px;
+    }
+
+    #toggle:checked~.gnb {
+        left: 0;
+    }
+
+    /*중간*/
+    .wrap h1 {
+        font-size: 22px;
+    }
+
+    .one {
+        width: 100%;
+        float: none;
+        height: 100%;
+    }
+    
+    .two {
+        width: 100%;
+        float: none;
+        height: 100%;
+    }
+    
+    .three {
+        width: 100%;
+        float: none;
+        height: 100%;
+    }
+    
+    .three>div {
+        width: 100%;
+        left: 0px;
+    }
+    
+    .four {
+        width: 100%;
+        float: none;
+        height: 100%;
+    }
+    
+    .foura {
+        width: 100%;
+        float: none;
+        height: 100%;
+    }
+    
+    .five {
+        width: 100%;
+        float: none;
+        height: 100%;
+    }
+    
+    .one img,
+    .two img,
+    .three img,
+    .four img,
+    .foura img,
+    .five img {
+        width: 100%;
+    }
+    
+    .six img,
+    .seven img {
+        width: 100%;
+    }
+    
+    .six img {
+        padding-bottom: 0px;
+    }
+    
+    .seven img {
+        padding-bottom: 40px;
+    }
+    
+    .eight img {width: 100%;}
+    
+    .nine {
+        width: 80%;
+        margin: 0 auto;
+    }
+    
+    .nine h1 {
+        margin-bottom: 0px;
+        line-height: 35px;
+    }
+
+    .boxwrap img {
+        width: 100%;
+    }
+
+    .boxwrap p {font-size: 13px;}
+    /* 푸터 */
+    footer {
+        height: auto;
+        padding-top: 30px;
+        padding-bottom: 80px;
+    }
+
+    .footer1 {
+        display: none;
+    }
+
+    .footer2 {
+        display: none;
+    }
+
+    .footer3 {
+        width: 100%;
+        font-size: 18px;
+        float: none;
+        margin: 0 auto;
+        margin-bottom: 20px;
+    }
+
+    .footer3 img {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media screen and (max-width:768px) {
+    h2 {
+        font-size: 35px;
+    }
+
+    /* 메뉴바 */
+    .headerwrap {
+        background-color: #fffef1;
+    }
+
+    header>h1 {
+        float: left;
+        margin-top: -25px;
+        margin-left: 250px;
+    }
+
+    .util {
+        width: 20%;
+        margin-top: -20px;
+    }
+
+    .util>li {
+        line-height: 25px;
+        width: 40px;
+    }
+
+    header label {
+        display: block;
+    }
+
+    .gnb {
+        position: fixed;
+        width: 40%;
+        height: 100vh;
+        transition: left 0.8s;
+        left: -45%;
+        top: 70px;
+        background-color: #fffef1;
+        color: #a78b59;
+        padding-top: 30px;
+    }
+
+    .gnb>li {
+        float: none;
+        width: 80%;
+    }
+
+    .lnb {
+        height: 0;
+        display: block;
+        overflow: hidden;
+        transition: all 0.8s;
+        /* background-color:red; */
+    }
+
+    .gnb>li:hover .lnb {
+        height: 300px;
+    }
+
+    #toggle:checked~.gnb {
+        left: 0;
+    }
+
+    /*중간*/
+    .wrap h1 {
+        font-size: 22px;
+    }
+
+    .one {
+        width: 100%;
+        float: none;
+        height: 100%;
+    }
+    
+    .two {
+        width: 100%;
+        float: none;
+        height: 100%;
+    }
+    
+    .three {
+        width: 100%;
+        float: none;
+        height: 100%;
+    }
+    
+    .three>div {
+        width: 100%;
+        left: 0px;
+    }
+    
+    .four {
+        width: 100%;
+        float: none;
+        height: 100%;
+    }
+    
+    .foura {
+        width: 100%;
+        float: none;
+        height: 100%;
+    }
+    
+    .five {
+        width: 100%;
+        float: none;
+        height: 100%;
+    }
+    
+    .one img,
+    .two img,
+    .three img,
+    .four img,
+    .foura img,
+    .five img {
+        width: 100%;
+    }
+    
+    .six img,
+    .seven img {
+        width: 100%;
+    }
+    
+    .six img {
+        padding-bottom: 0px;
+    }
+    
+    .seven img {
+        padding-bottom: 40px;
+    }
+    
+    .eight img {width: 100%;}
+    
+    .nine {
+        width: 80%;
+        margin: 0 auto;
+    }
+    
+    .nine h1 {
+        margin-bottom: 0px;
+        line-height: 35px;
+    }
+
+    .boxwrap img {
+        width: 100%;
+    }
+
+    .boxwrap p {font-size: 13px;}
+    /* 푸터 */
+    footer {
+        height: auto;
+        padding-top: 30px;
+        padding-bottom: 80px;
+    }
+
+    .footer1 {
+        display: none;
+    }
+
+    .footer2 {
+        display: none;
+    }
+
+    .footer3 {
+        width: 100%;
+        font-size: 18px;
+        float: none;
+        margin: 0 auto;
+        margin-bottom: 20px;
+    }
+
+    .footer3 img {
+        width: 20px;
+        height: 20px;
+    }
+}@media screen and (max-width:427px) {
+    h2 {
+        font-size: 33px;
+    }
+
+    /* 메뉴바 */
+    header>h1 {
+        float: left;
+        margin-top: -25px;
+        margin-left: 100px;
+    }
+
+    .util {
+        width: 35%;
+        margin-right: -40px;
+    }
+    .lnb {
+        line-height: 20px;
+    }
+
+    /*중간*/
+
+    /* 푸터 */
+
+    footer {
+        padding-bottom: 25px;
+    }
+
+    .footer3 {
+        font-size: 15px;
+    }
+
+    .footer3 img {
+        width: 18px;
+        height: 18px;
+    }
+}
