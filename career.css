@@ -332,10 +332,13 @@ section .inner .list_wrap>ul>li .thumbnail {
     background-color: #000;
     font-size: 0;
     transform: rotate(0deg);
+    overflow: hidden;
 }
 
 section .inner .list_wrap>ul>li .thumbnail:hover {
-    transform: rotate(-3deg);
+    opacity: 0.8;
+    scale: 1.1;
+    transition: all 0.5s;
 }
 
 section .inner .list_wrap>ul>li .thumbnail img {
