@@ -158,7 +158,6 @@ header a {
 
 /* =========================
    Sub menu (PC: 가로 바)
-   - 너가 원한 "2번째 사진" 스타일 유지
 ========================= */
 .has-sub .sub {
   position: fixed;
@@ -548,7 +547,7 @@ section .inner .list_wrap>ul>li dl dd {
 
 
 /* 모바일 */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   html {
     font-size: 50%;
   }

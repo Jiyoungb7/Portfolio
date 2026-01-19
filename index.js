@@ -60,6 +60,18 @@ $(function () {
 
             afterLoad: function () {
                 requestAnimationFrame(refreshSlick);
+
+                const careerMenu = document.querySelector(
+                    '.menu li[data-menuanchor="section7"]'
+                );
+
+                if (!careerMenu) return;
+
+                if (anchorLink === "section7") {
+                    careerMenu.classList.add("is-open");
+                } else {
+                    careerMenu.classList.remove("is-open");
+                }
             },
 
             onLeave: function (index, nextIndex) {

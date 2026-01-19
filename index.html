@@ -23,29 +23,41 @@
 
 <body>
     <div class="allWrap">
-        <header>
-            <div>
-                <h1><a href="#section1">Portfolio</a></h1>
+    <header>
+        <div>
+            <h1><a href="./index.html#section1">Portfolio</a></h1>
 
-                <!-- 모바일 햄버거 -->
-                <button class="mui" type="button" aria-label="메뉴 열기" aria-expanded="false">
-                    <span></span><span></span><span></span>
-                </button>
-            </div>
+            <!-- 모바일 햄버거 -->
+            <button class="mui" type="button" aria-label="메뉴 열기" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
 
-            <nav class="menu" aria-label="Main navigation">
-                <ul>
-                    <li data-menuanchor="section1"><a href="#section1">Home</a></li>
-                    <li data-menuanchor="section2"><a href="#section2">About</a></li>
-                    <li data-menuanchor="section3"><a href="#section3">Skills</a></li>
-                    <li data-menuanchor="section4"><a href="#section4">DetailPage</a></li>
-                    <li data-menuanchor="section5"><a href="#section5">WebSite</a></li>
-                    <li data-menuanchor="section6"><a href="#section6">Video</a></li>
-                    <li data-menuanchor="section7"><a href="#section7">Career</a></li>
-                    <li data-menuanchor="section8"><a href="#section8">Contact</a></li>
-                </ul>
-            </nav>
-        </header>
+        <nav class="menu" aria-label="Main navigation">
+            <ul>
+                <li data-menuanchor="section1"><a href="./index.html#section1">Home</a></li>
+                <li data-menuanchor="section2"><a href="./index.html#section2">About</a></li>
+                <li data-menuanchor="section3"><a href="./index.html#section3">Skills</a></li>
+                <li data-menuanchor="section4"><a href="./index.html#section4">DetailPage</a></li>
+                <li data-menuanchor="section5"><a href="./index.html#section5">WebSite</a></li>
+                <li data-menuanchor="section6"><a href="./index.html#section6">Video</a></li>
+
+                <!-- 서브메뉴 유지 -->
+                <li class="has-sub" data-menuanchor="section7">
+                    <a href="./index.html#section7" aria-haspopup="true" aria-expanded="false">Career</a>
+                    <ul class="sub">
+                        <li><a class="ko" href="./sub1.html">제안서</a></li>
+                        <li><a class="ko" href="./sub2.html">홍보물</a></li>
+                        <li><a class="ko" href="./sub3.html">바이럴 이미지</a></li>
+                        <li><a class="ko" href="./sub4.html">홈페이지 / 랜딩</a></li>
+                        <li><a class="ko" href="./sub5.html">그 외 작업</a></li>
+                    </ul>
+                </li>
+
+                <li data-menuanchor="section8"><a href="./index.html#section8">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
         <div id="fullpage" class="fullpage">
             <!-- 섹션 1 -->
@@ -578,7 +590,7 @@
                     <div class="centerWraps">
                         <div class="centerText">
                             <button type="button">
-                                <a href="./career.html">
+                                <a href="./sub1.html">
                                     View More <div></div>
                                 </a>
                             </button>
