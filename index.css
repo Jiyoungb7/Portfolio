@@ -1,11 +1,31 @@
-* {
+/* Base / Reset */
+:root {
+    --bg: #ff98da;
+    --text: #000;
+    --border: 1px solid var(--text);
+    --wrapW: min(1600px, 91.6vw);
+    --headerH: clamp(80px, 7vw, 115px);
+    --font-kr: 'Noto Sans KR', sans-serif;
+    --font-en: "Times New Roman", Times, serif;
+}
+
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
 }
 
 body {
-    background: #ff98da;
-    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    font-family: var(--font-kr);
+    color: var(--text);
     position: relative;
 }
 
@@ -18,79 +38,114 @@ li {
     list-style: none;
 }
 
+/* Layout */
 .allWrap {
     margin: 0 auto;
-    width: 91.6%;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
+    width: var(--wrapW);
+    border-left: var(--border);
+    border-right: var(--border);
+    border-bottom: var(--border);
 }
 
-header {
-    font-family: 'Times New Roman', Times, serif;
-    position: fixed;
-    z-index: 5;
-    width: 91.6%;
-    height: 115px;
-    background: #ff98da;
-    display: grid;
-    grid-template-columns: 80px 1fr 80px;
-    text-align: center;
-    align-items: center;
-    border-bottom: 1px solid black;
-}
-
-header>div:first-of-type {
-    display: flex;
-}
-
-header h1 {
-    margin-left: 100px;
-    z-index: 6;
-}
-
-.menu {
-    height: 115px;
-    text-transform: uppercase;
-    font-size: 15px;
-    letter-spacing: 1px;
-    display: grid;
-    grid-template-columns: 10fr 155px 1fr;
-    align-items: center;
-}
-
-.menu ul {
-    display: flex;
-    justify-content: space-evenly;
-    margin-left: 200px;
-}
-
-.menu li {
-    margin-left: 20px;
-    padding: 10px 20px;
-    border-radius: 50%;
-    border: 1px solid #ff98da;
-    transition: border 0.5s;
-}
-
-.menu li:hover {
-    border: 1px solid black;
-}
-
-.menu li.active {
-    border: 1px solid black;
-}
-
+/* 섹션 공통 */
 section {
     width: 100%;
     display: grid;
     grid-template-columns: 80px 1fr 80px;
     align-items: center;
     text-align: center;
-    border-bottom: 1px solid black;
+    border-bottom: var(--border);
 }
 
-/* 섹션1 */
+/* Header / Menu */
+header {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+
+    width: calc(var(--wrapW));
+    height: var(--headerH);
+    background: var(--bg);
+
+    border-left: var(--border);
+    border-right: var(--border);
+    border-bottom: var(--border);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding-inline: clamp(14px, 3vw, 80px);
+    gap: clamp(10px, 2vw, 24px);
+}
+
+header>div:first-of-type {
+    display: flex;
+    align-items: center;
+    gap: clamp(10px, 2vw, 18px);
+}
+
+header h1 {
+    margin-left: 0;
+    /* ✅ 고정 이동 제거 */
+    z-index: 6;
+    font-size: clamp(22px, 1.8vw, 32px);
+}
+
+header,
+header a {
+    font-family: var(--font-en);
+}
+
+/* menu wrapper */
+.menu {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* 가운데 정렬 */
+    font-size: clamp(12px, 0.95vw, 15px);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    /* 기존 grid 설정 제거(유연하게) */
+    grid-template-columns: none;
+}
+
+/* ul */
+.menu ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    /* 화면 줄면 자연스럽게 줄바꿈 */
+    gap: clamp(6px, 1.2vw, 18px);
+    margin-left: 0;
+    /* ✅ 고정 이동 제거 */
+    padding: 0;
+}
+
+/* li */
+.menu li {
+    margin-left: 0;
+    padding: clamp(6px, .8vw, 10px) clamp(10px, 1.2vw, 18px);
+    border-radius: 999px;
+    border: 1px solid var(--bg);
+    transition: border 0.5s;
+    white-space: nowrap;
+    /* 메뉴 글자 찢김 방지 */
+}
+
+
+.menu li:hover,
+.menu li.active {
+    border: 1px solid var(--text);
+}
+
+/* Section 1 - Home */
 #home {
     position: relative;
     height: 750px;
@@ -102,84 +157,106 @@ section {
     left: 50%;
     transform: translateX(-50%);
     width: 700px;
+    /* 원래 사이즈 유지 */
     height: 400px;
+    max-width: 90vw;
+    /* 작은 화면에서 깨짐 방지 */
 }
 
 #home h2 {
     width: 80%;
-    z-index: 0;
     position: absolute;
     top: 10%;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 50px;
+    font-size: 40px;
     font-weight: 400;
     line-height: 1.5;
 }
 
 #home h2 p {
-    font-size: 25px;
+    font-size: 20px;
     line-height: 1.5;
 }
 
-
-
-#about {
+/* Section 2 - About */
+.centerWrap {
     width: 100%;
-    padding-top: 110px;
+    max-width: 1600px;
+    margin: 0 auto;
+
+    padding: clamp(32px, 5vw, 90px) clamp(16px, 3vw, 40px);
     display: grid;
-    grid-template-columns: 0px 1fr 80px;
-    align-items: center;
-    text-align: center;
-    border-bottom: 1px solid black;
+
+    grid-template-columns: clamp(220px, 24vw, 320px) minmax(180px, 1fr) minmax(360px, 2.2fr);
+    grid-template-areas:
+        "photo info  edu"
+        "photo pers  career";
+
+    column-gap: clamp(14px, 3vw, 64px);
+    row-gap: clamp(12px, 2vw, 26px);
+
+    align-items: start;
 }
 
-.centerWrap {
-    width: 91.6%;
-    height: 700px;
-    display: grid;
-    grid-template-columns: 1fr 0.5fr 1fr 0.5fr 1fr;
-    justify-items: center;
-    align-items: center;
+#about b {
+    font-weight: 700;
 }
 
 #about .centerWrap>div {
-    width: 15vw;
-    height: 450px;
-    margin-bottom: -90px;
+    grid-area: photo;
+    width: 100%;
+    max-width: 320px;
+    height: clamp(280px, 30vw, 450px);
+    margin: 0;
     background: url(./img/face.jpg) no-repeat center / cover;
 }
 
+.centerWrap>p:nth-of-type(1) {
+    grid-area: info;
+}
+
+.centerWrap>p:nth-of-type(2) {
+    grid-area: edu;
+}
+
+.centerWrap>p:nth-of-type(3) {
+    grid-area: pers;
+}
+
+.centerWrap>p:nth-of-type(4) {
+    grid-area: career;
+}
+
 .centerWrap p {
-    height: 80px;
-    margin-top: 0;
+    margin: 0;
+    height: auto;
     text-align: left;
-    font-size: 20px;
+    font-size: clamp(15px, 1.05vw, 20px);
     font-weight: 300;
-    line-height: 2;
+    line-height: 1.9;
 }
 
 .centerWrap span {
-    display: block;
-    font-size: 15px;
+    font-size: clamp(12px, .9vw, 15px);
+    margin-right: 10px;
 }
 
-/* 섹션3 */
-
-#skills span {
-    padding-bottom: 50px;
+/* Section 3 - Skills */
+#skills .skillsInner {
+    display: block;
+    padding-bottom: 15px;
 }
 
 #skills h2 {
-    margin-top: 50px;
+    margin-top: 10px;
     font-size: 50px;
     font-family: 'Times New Roman', Times, serif;
 }
 
 .bars {
     width: 80%;
-    margin: 0 auto;
-    margin-top: 50px;
+    margin: 0px auto 0;
 }
 
 #skills p {
@@ -191,23 +268,25 @@ section {
     width: 20px;
 }
 
+/* progress wrapper */
 .item {
     margin-top: 10px;
     height: 30px;
-    border: 1px solid black;
+    border: var(--border);
     margin-bottom: 15px;
     padding: 7px;
-    box-sizing: border-box;
 }
 
+/* progress bar */
 .bar {
     height: 14px;
-    background-color: black;
+    background-color: var(--text);
     width: 0%;
     transition: width 1.5s ease-out;
     transition-delay: 0.8s;
 }
 
+/* active widths */
 .bar01.active {
     width: 70%;
 }
@@ -240,18 +319,18 @@ section {
     width: 70%;
 }
 
-/* 섹션4~6 */
-
+/* Section 4~7 */
 #slide1,
 #slide2,
 #slide3,
 #slide4 {
     width: 100%;
     text-align: center;
-    border-bottom: 1px solid black;
+    border-bottom: var(--border);
     overflow: hidden;
 }
 
+/* slick arrows */
 .slick-prev {
     margin-left: 100px;
     z-index: 3;
@@ -261,13 +340,61 @@ section {
     margin-right: 100px;
 }
 
+.slick-prev,
+.slick-next {
+    -webkit-appearance: none;
+    appearance: none;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    outline: none;
+    box-shadow: none;
+    font-size: 0;
+    /* 버튼 안의 텍스트(Prev/Next) 숨김 */
+    line-height: 0;
+}
+
+#slide1 .slick-list,
+#slide2 .slick-list,
+#slide3 .slick-list {
+    min-height: 1px;
+}
+
+#slide1,
+#slide2,
+#slide3 {
+    position: relative;
+}
+
+.slick-prev,
+.slick-next {
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 50;
+}
+
+.slick-prev {
+    left: 24px;
+}
+
+.slick-next {
+    right: 24px;
+}
+
+/* 하트/라인 */
+#slide1 .slick-slide,
+#slide2 .slick-slide,
+#slide3 .slick-slide,
+#slide4 .slick-slide {
+    position: relative;
+}
+
 #slide1 span:first-of-type,
 #slide2 span:first-of-type,
 #slide3 span:first-of-type,
 #slide4 span:first-of-type {
     position: absolute;
     top: 20%;
-    text-align: center;
     font-size: 25px;
 }
 
@@ -277,7 +404,6 @@ section {
 #slide4 span:nth-of-type(2) {
     position: absolute;
     bottom: 2%;
-    text-align: center;
     font-size: 25px;
 }
 
@@ -285,19 +411,19 @@ section {
 #slide2 span:last-of-type,
 #slide3 span:last-of-type,
 #slide4 span:last-of-type {
-    width: 0.5px;
-    height: 65%;
-    background-color: black;
     position: absolute;
     bottom: 8%;
     margin-left: 10px;
-    text-align: center;
+    width: 0.5px;
+    height: 65%;
+    background-color: var(--text);
 }
 
+/* content */
 .centerWraps {
     display: flex;
     justify-content: center;
-    padding-top: 115px;
+    padding-top: var(--headerH);
     align-items: center;
     width: 90%;
     margin: 0 auto;
@@ -307,30 +433,24 @@ section {
     text-align: left;
     margin-left: 5%;
     width: 48%;
-    box-sizing: border-box;
 }
 
 .ceterImg {
     width: 45%;
-    box-sizing: border-box;
 }
 
 .ceterImg div {
     width: 575px;
     height: 500px;
-    margin-bottom: 50px;
-    margin-left: 50px;
+    margin: 0 0 50px 50px;
     overflow: hidden;
 }
 
+/* slide3만 살짝 다른 사이즈 유지 */
 #slide3 .ceterImg div {
-    margin: 0px 0px 60px;
-        width: 640px;
-}
-
-.ceterImg div:hover img {
-    opacity: 0.8;
-    scale: 1.1;
+    margin: 0 0 60px 0;
+    width: 640px;
+    height: auto;
 }
 
 .ceterImg img {
@@ -342,9 +462,14 @@ section {
 #slide3 .ceterImg img {
     margin-top: 100px;
     width: 25vw;
-    transition: all 0.5s;
 }
 
+.ceterImg div:hover img {
+    opacity: 0.8;
+    transform: scale(1.1);
+}
+
+/* typo 방지: scale 속성 대신 transform 사용(기존 시각 동일) */
 
 .centerText p {
     margin-bottom: 50px;
@@ -358,18 +483,19 @@ section {
     margin-top: -10px;
 }
 
-.centerText h4{
+.centerText h4 {
     margin-top: 50px;
     font-weight: 300;
     font-size: 25px;
 }
 
+/* button underline animation */
 #slide1 button,
 #slide2 button,
 #slide3 button,
 #slide4 button {
     border: none;
-    background-color: transparent;
+    background: transparent;
     cursor: pointer;
     font-size: 20px;
     font-family: 'Courier New', Courier, monospace;
@@ -379,51 +505,51 @@ section {
     padding-bottom: 5px;
 }
 
-button div {
+#slide1 button div,
+#slide2 button div,
+#slide3 button div,
+#slide4 button div {
     display: inline-block;
     width: 50px;
     height: 1px;
     vertical-align: middle;
-    background-color: black;
+    background-color: var(--text);
 }
 
-.centerText>b{
+.centerText>b {
     display: inline-block;
     width: 180px;
     height: 1px;
-    background-color: black;
+    background-color: var(--text);
     vertical-align: top;
 }
 
 .centerText button:hover~b {
-    animation: scalechange 0.6s;
-    animation-fill-mode: both;
+    animation: scalechange 0.6s both;
 }
 
 @keyframes scalechange {
     0% {
         transform-origin: right;
-        transform: scale(20%);
+        transform: scaleX(0.2);
     }
 
     100% {
         transform-origin: right;
-        transform: scale(100%);
+        transform: scaleX(1);
     }
 }
 
-
 .keyword>div {
     padding: 0 20px;
-    border: 1.5px solid black;
-    border-radius: 50px 50px 50px 50px;
+    border: 1.5px solid var(--text);
+    border-radius: 50px;
     margin-right: 15px;
     font-size: 18px;
     display: inline-block;
 }
 
-
-/* 섹션8  */
+/* Section 8 - Contact */
 .contactWrap {
     position: relative;
     display: grid;
@@ -440,9 +566,8 @@ button div {
     align-items: flex-start;
 }
 
-
 .contactWrap div:last-of-type {
-    border-left: 1px solid black;
+    border-left: var(--border);
     margin-top: 120px;
     margin-bottom: 100px;
 }
@@ -471,79 +596,253 @@ button div {
     margin-top: 20px;
 }
 
-/* 태블릿 및 모바일 공통 (1024px 이하) */
+/* 햄버거 */
+.mui {
+    display: none;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+    position: relative;
+    z-index: 9999;
+}
+
+.mui span {
+    display: block;
+    width: 28px;
+    height: 2px;
+    background: var(--text);
+    margin: 6px auto;
+    transition: transform .25s, opacity .25s;
+}
+
+/* X 모양 */
+header.nav-open .mui span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+header.nav-open .mui span:nth-child(2) {
+    opacity: 0;
+}
+
+header.nav-open .mui span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+body.nav-open {
+    overflow: hidden;
+}
+
+/* Text 사이즈 */
+.centerText h3 {
+    font-size: clamp(28px, 6vw, 50px);
+}
+
+.centerText p {
+    font-size: clamp(16px, 3.2vw, 20px);
+}
+
+.centerText h4 {
+    font-size: clamp(14px, 3.0vw, 25px);
+}
+
+/* 반응형 */
+@media (max-width: 1400px) {
+    .centerWrap {
+        grid-template-columns: clamp(200px, 28vw, 280px) 1fr;
+        grid-template-areas:
+            "photo info"
+            "photo edu"
+            "photo pers"
+            "photo career";
+    }
+
+    #about .centerWrap>div {
+        max-width: 280px;
+    }
+}
+
 @media screen and (max-width: 1024px) {
     .allWrap {
-        width: 100%; /* 전체 여백 제거 */
+        width: 100%;
         border: none;
     }
 
     header {
+        border-left: none;
+        border-right: none;
         width: 100%;
         height: auto;
-        padding: 20px 0;
-        grid-template-columns: 1fr; /* 헤더를 1열로 */
+        padding: 12px 16px;
+        grid-template-columns: 1fr;
+        left: 0;
+        transform: none;
+    }
+
+    header>div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    header>div:first-of-type {
+        width: 100%;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .mui {
+        margin-left: auto;
+        display: block;
     }
 
     header h1 {
         margin-left: 0;
-        margin-bottom: 10px;
+        margin-bottom: 0px;
+    }
+
+    .menu {
+        height: auto;
+        grid-template-columns: 1fr;
+        position: fixed;
+        inset: 0;
+        background: var(--bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translateX(100%);
+        transition: transform .25s ease;
+        z-index: 9998;
+    }
+
+    header.nav-open .menu {
+        transform: translateX(0);
     }
 
     .menu ul {
         margin-left: 0;
         padding: 0 10px;
-        flex-wrap: wrap; /* 메뉴가 많으면 다음 줄로 넘기기 */
+        flex-wrap: wrap;
         justify-content: center;
+        flex-direction: column;
+        gap: 16px;
+        margin-left: 0;
     }
 
     .menu li {
-        margin: 5px;
-        padding: 5px 15px;
+        margin: 0;
+        padding: 12px 18px;
+        border-radius: 999px;
+        border: 1px solid var(--text);
     }
 
-    /* 섹션1 홈 */
+    /* Home */
     #home {
         height: 100vh;
     }
+
     #home h2 {
-        font-size: 30px; /* 폰트 축소 */
+        font-size: 28px;
         top: 15%;
     }
+
+    #home h2 p {
+        font-size: 15px;
+    }
+
     #home video {
-        width: 90%; /* 비디오 너비 조정 */
+        width: 90%;
         height: auto;
     }
 
-    /* 섹션2 About */
-    #about {
-        padding-top: 150px;
+    /* About */
+    /* about */
+    #about .centerWrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 18px;
+        padding: 40px 16px;
     }
-    .centerWrap {
-        grid-template-columns: 1fr; /* 1열로 배치 */
-        height: auto;
-        gap: 30px;
+
+    #about .centerWrap>* {
+        grid-area: auto !important;
     }
-    #about .centerWrap > div {
-        width: 200px; /* 이미지 크기 고정 */
+
+    #about .centerWrap>div {
+        width: 200px;
         height: 200px;
-        border-radius: 50%; /* 모바일에서는 원형이 깔끔함 */
+        border-radius: 50%;
+        margin: 0 0 10px 0;
     }
-    .centerWrap p {
+
+    #about .centerWrap p {
+        width: min(520px, 100%);
         text-align: center;
-        height: auto;
+    }
+
+    #about .centerWrap span {
+        margin-right: 0;
+    }
+
+    #slide1 span:last-of-type,
+    #slide2 span:last-of-type,
+    #slide3 span:last-of-type,
+    #slide4 span:last-of-type {
+        display: none;
+    }
+
+    #slide1 span,
+    #slide2 span,
+    #slide3 span,
+    #slide4 span {
+        display: none;
+    }
+
+    #slide1 button,
+    #slide2 button,
+    #slide3 button,
+    #slide4 button {
+        margin-top: 32px;
+    }
+
+    #slide3 .ceterImg div {
+        width: min(520px, 100%);
+        margin: 16px auto 0;
+    }
+
+    #slide3 .ceterImg img {
+        width: 100% !important;
+        margin-top: 0;
+    }
+
+    .slick-prev,
+    .slick-next {
+        width: 52px;
+        height: 52px;
+    }
+
+    .slick-prev:before,
+    .slick-next:before {
+        font-size: 30px;
     }
 }
 
-/* 모바일 (768px 이하) */
+/* 모바일 */
 @media screen and (max-width: 768px) {
-    /* 포트폴리오 슬라이드 부분 */
+
+    /* Slides */
     .centerWraps {
-        flex-direction: column; /* 이미지와 텍스트를 세로로 */
+        flex-direction: column;
         padding-top: 150px;
     }
 
-    .centerText, .ceterImg {
+    .centerText,
+    .ceterImg {
         width: 100%;
         text-align: center;
         margin-left: 0;
@@ -558,14 +857,14 @@ button div {
     }
 
     .ceterImg div {
-        width: 100%;
-        height: auto;
-        margin-left: 0;
+        width: min(92vw, 520px);
+        margin: 16px auto 0;
     }
 
     .ceterImg img {
-        width: 80% !important; /* 이미지 크기 조정 */
-        margin-top: 20px;
+        width: 100% !important;
+        margin-top: 0;
+        display: block;
     }
 
     /* Skills */
@@ -573,9 +872,13 @@ button div {
         width: 90%;
     }
 
+    .centerWrap span {
+        margin-right: 2px;
+    }
+
     /* Contact */
     .contactWrap {
-        grid-template-columns: 1fr; /* 연락처 1열로 */
+        grid-template-columns: 1fr;
     }
 
     .contactWrap div:first-of-type {
@@ -590,7 +893,7 @@ button div {
 
     .contactWrap div:last-of-type {
         border-left: none;
-        border-top: 1px solid black;
+        border-top: var(--border);
         margin-top: 20px;
         padding-top: 40px;
     }
@@ -600,8 +903,30 @@ button div {
         text-align: center;
         font-size: 20px;
     }
-    
+
     .contactWrap b {
         font-size: 25px;
+    }
+
+    #slide3 .ceterImg div {
+        display: flex;
+        justify-content: center;
+    }
+
+    #slide3 .ceterImg a {
+        display: block;
+    }
+
+    #slide3 .ceterImg img {
+        display: block;
+        margin: 20px auto 0;
+        width: min(92vw, 520px) !important;
+    }
+}
+
+@media (hover: none) {
+    .ceterImg div:hover img {
+        transform: none;
+        opacity: 1;
     }
 }

@@ -21,45 +21,38 @@
 <body>
     <header>
         <div>
-            <h1><a href="#section1">Portfolio</a></h1>
-            <nav>
-                <div class="mui">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-                <div class="nav_list">
-                    <ul>
-                        <li><a href="./index.html">Home</a></li>
-                        <li><a href="./index.html #section2">About me</a></li>
-                        <li><a href="./index.html" class="active">Port Folio</a>
-                            <div>
-                                <ol>
-                                    <li><a class="ko" href="./sub2.html">제안서</a></li>
-                                    <li><a class="ko active" href="./sub3.html">홍보물</a></li>
-                                    <li><a class="ko" href="./sub4.html">바이럴 이미지</a></li>
-                                    <li><a class="ko" href="./sub5.html">홈페이지</a></li>
-                                    <li><a class="ko" href="./sub6.html">그 외 작업</a></li>
-                                </ol>
-                            </div>
-                        </li>
-                        <li><a href="./index.html #section8">Contact</a></li>
-                    </ul>
-                </div>
-            </nav>
-            <div class="menu">
-                <ul>
-                    <li data-menuanchor="section1"><a href="#section1">Home </a></li>
-                    <li data-menuanchor="section2"><a href="#section2">About</a></li>
-                    <li data-menuanchor="section3"><a href="#section3">Skills</a></li>
-                    <li data-menuanchor="section4"><a href="#section4">DetailPage</a></li>
-                    <li data-menuanchor="section5"><a href="#section5">WebSite</a></li>
-                    <li data-menuanchor="section6"><a href="#section6">Video</a></li>
-                    <li data-menuanchor="section7"><a href="#section7">Career</a></li>
-                    <li data-menuanchor="section8"><a href="#section8">Contact</a></li>
-                </ul>
-            </div>
+            <h1><a href="./index.html#section1">Portfolio</a></h1>
+
+            <!-- 모바일 햄버거 -->
+            <button class="mui" type="button" aria-label="메뉴 열기" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
         </div>
+
+        <nav class="menu" aria-label="Main navigation">
+            <ul>
+                <li data-menuanchor="section1"><a href="./index.html#section1">Home</a></li>
+                <li data-menuanchor="section2"><a href="./index.html#section2">About</a></li>
+                <li data-menuanchor="section3"><a href="./index.html#section3">Skills</a></li>
+                <li data-menuanchor="section4"><a href="./index.html#section4">DetailPage</a></li>
+                <li data-menuanchor="section5"><a href="./index.html#section5">WebSite</a></li>
+                <li data-menuanchor="section6"><a href="./index.html#section6">Video</a></li>
+
+                <!-- 서브메뉴 유지 -->
+                <li class="has-sub">
+                    <a href="./index.html#section4" aria-haspopup="true" aria-expanded="false">Career</a>
+                    <ul class="sub">
+                        <li><a class="ko" href="./sub2.html">제안서</a></li>
+                        <li><a class="ko" href="./sub3.html">홍보물</a></li>
+                        <li><a class="ko active" href="./sub4.html">바이럴 이미지</a></li>
+                        <li><a class="ko" href="./sub5.html">홈페이지</a></li>
+                        <li><a class="ko" href="./sub6.html">그 외 작업</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="./index.html#section8">Contact</a></li>
+            </ul>
+        </nav>
     </header>
 
     <section>
@@ -626,118 +619,7 @@
             </div>
         </div>
     </section>
-
-    <script>
-        $(document).ready(function () {
-            // 초기 실행, 이벤트 바인딩
-            controlMouse();
-            initAnimations();
-            initMenu();
-            initAllSwipers();
-            handleDetailPage();
-        });
-
-        // 마우스 우클릭, 드래그 방지
-        function controlMouse() {
-            $(document).on("contextmenu selectstart", function () {
-                return false;
-            });
-        }
-
-        // 로딩 화면, 타이틀
-        function initAnimations() {
-            $(window).on('load', function () {
-                setTimeout(function () {
-                    $('.load').fadeOut(300);
-                    $("section").fadeIn(500);
-                    $(".tit h3, .tit p").addClass("active");
-                    $(".rolling_wrap").css("opacity", "1");
-                }, 500);
-            });
-        }
-
-        // 상단 메뉴
-        function initMenu() {
-            $(".mui").click(function () {
-                $("header, .nav_list, .mui, body").toggleClass("active");
-            });
-
-            // 모바일 서브메뉴 토글
-            if ($(window).width() < 1024) {
-                $("header nav ul > li:nth-child(3) > a").click(function (e) {
-                    e.preventDefault();
-                    $(this).next("div").toggleClass("active");
-                    $(this).next("div").find("ol").toggleClass("active");
-                });
-            }
-        }
-
-        // Swiper 슬라이더 통합 초기화
-        function initAllSwipers() {
-            // 상세페이지 내의 슬라이드들 자동 루프 초기화
-            $(".detailPage_slide_wrap").each(function (index, element) {
-                // 현재 슬라이더의 형제 요소인 next/prev 버튼을 찾음
-                const nextBtn = $(element).siblings(".swiper-button-next")[0];
-                const prevBtn = $(element).siblings(".swiper-button-prev")[0];
-
-                new Swiper(element, {
-                    slidesPerView: 1,
-                    spaceBetween: 0,
-                    observer: true,
-                    observeParents: true,
-                    loop: true,
-                    navigation: {
-                        nextEl: nextBtn,
-                        prevEl: prevBtn,
-                    },
-                });
-            });
-
-            // 메인 페이지 등에 .slide_wrap이 있을 경우 초기화
-            if ($(".slide_wrap").length > 0) {
-                new Swiper(".slide_wrap", {
-                    loop: true,
-                    centeredSlides: true,
-                    autoplay: { delay: 1800, disableOnInteraction: false },
-                    breakpoints: {
-                        320: { slidesPerView: 1, spaceBetween: 24 },
-                        768: { slidesPerView: 2, spaceBetween: 40 },
-                        1024: { slidesPerView: 3, spaceBetween: 80 }
-                    }
-                });
-            }
-        }
-
-        // 상세페이지 팝업 열기/닫기 로직
-        function handleDetailPage() {
-            // 썸네일 클릭 시 열기
-            $(".thumbnail").click(function () {
-                const targetDetail = $(this).siblings(".detailPage");
-
-                targetDetail.addClass("active");
-                $("body").css("overflow", "hidden"); // 스크롤 방지
-
-                // 팝업 열 때 스크롤 위치 초기화
-                targetDetail.find(".detailPage_slide_wrap, .swiper-slide").scrollTop(0);
-            });
-
-            // 배경 클릭 시 닫기
-            $(".detailPage").click(function () {
-                $(this).removeClass("active");
-                $("body").css("overflow-y", "scroll");
-            });
-
-            // 팝업 내부 이미지나 버튼 클릭 시 닫히지 않도록 방지
-            $(".detailPage img, .swiper-button-next, .swiper-button-prev").click(function (e) {
-                e.stopPropagation();
-            });
-
-            // 슬라이드 이미지 클릭 시 상단으로 이동 (기존 기능 유지)
-            $(".detailPage_slide_wrap img").click(function () {
-                $(this).closest(".detailPage").animate({ scrollTop: 0 }, 300);
-            });
-        }
-    </script>
+    <script src="./career.js"></script>
 </body>
 
 </html>
