@@ -13,7 +13,9 @@
   --popupZ: 9999;
 
   --linePadX: 6rem;
-  /* section .inner의 좌우 패딩과 동일 */
+
+  --contentW: min(1600px, 91.6vw);
+  --sidePad: 6rem;
 }
 
 *,
@@ -78,6 +80,14 @@ body.active {
   overflow: hidden;
 }
 
+.header-inner,
+.line-inner,
+section .inner {
+  max-width: var(--contentW);
+  margin: 0 auto;
+  padding: 0 var(--sidePad);
+}
+
 header {
   position: fixed;
   top: 0;
@@ -91,7 +101,8 @@ header {
   background-color: #fff;
   color: #000;
 
-  border-bottom: 0px display: flex;
+  border-bottom: 0px;
+  display: flex;
   align-items: center;
   justify-content: space-between;
 
@@ -199,6 +210,7 @@ header a {
 
 body.subpage .has-sub .sub {
   height: 60px;
+  border-top: 1px solid #000;
   border-bottom: 1px solid #000;
 }
 
@@ -432,27 +444,35 @@ section .inner .list_wrap>ul>li dl dd {
 
 /* 슬라이드 박스 */
 .detailPage_slide_wrap {
-  position: relative;
+  width: min(90rem, 94vw);
+  height: 82vh;
   overflow: hidden;
-  width: min(84.0rem, 92vw);
-  height: min(84.0rem, 82vh);
-  margin: 0 auto;
 }
 
-.detailPage_slide_wrap .swiper-wrapper {
-  align-items: center;
+/* Swiper 기본 높이 고정 */
+.detailPage .swiper-wrapper,
+.detailPage .swiper-slide {
+  height: 100%;
 }
 
-.detailPage .detailPage_slide_wrap .swiper-wrapper .swiper-slide {
+/* ✅ 실제 스크롤 컨테이너 */
+.detailPage .slide-scroll {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: flex-start;
+
+  -webkit-overflow-scrolling: touch;
 }
 
-.detailPage img {
-  width: auto;
-  max-width: 100%;
-  max-height: 100%;
+/* 이미지 제약 완전 해제 */
+.detailPage .slide-scroll img {
+  width: 100%;
+  height: auto;
+  max-height: none;
 }
 
 /* 화살표 위치 충돌 방지 */
@@ -565,14 +585,20 @@ section .inner .list_wrap>ul>li dl dd {
   }
 
   header>div {
-    position: relative;
-    padding: 2.4rem 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 2.4rem 1.6rem;
   }
 
-  header>div h1 {
-    font-size: 2em;
-    width: 40%;
-    line-height: 1;
+  header h1 {
+    width: auto;
+    font-size: 4em;
+    line-height: 1.2;
+    /* Times 계열 안정값 */
+    white-space: nowrap;
+    /* 줄바꿈 방지 */
   }
 
   /* 리스트 1열 */

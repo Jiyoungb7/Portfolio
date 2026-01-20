@@ -111,10 +111,9 @@ function initAllSwipers() {
 
         new Swiper(element, {
             slidesPerView: 1,
-            spaceBetween: 0,
+            loop: true,
             observer: true,
             observeParents: true,
-            loop: true,
             navigation: {
                 nextEl: nextBtn,
                 prevEl: prevBtn,

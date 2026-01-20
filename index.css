@@ -643,12 +643,9 @@ body.nav-open {
     display: inline-block;
 }
 
-/* =========================
-   Section 7 (#slide4) 전용 CTA 디자인
-========================= */
+/* Section 7 */
 
 #slide4 .centerWraps {
-    /* fullPage 섹션 안에서 중앙 정렬 */
     min-height: calc(100vh - var(--headerH));
     padding-top: var(--headerH);
     padding-bottom: clamp(24px, 4vw, 60px);
@@ -659,36 +656,27 @@ body.nav-open {
 }
 
 #slide4 .centerText {
-    /* 기존: text-align:left + width 48% + margin-left 5% 를 덮어씀 */
     width: min(820px, 92%);
     margin-left: 0;
     text-align: center;
 }
 
-/* 카드처럼 보이게 (원하는 느낌이면 유지) */
+/* 카드 */
 #slide4 .ctaCard {
     width: 100%;
     border: 1px solid #000;
     border-radius: 28px;
     padding: clamp(22px, 4vw, 52px);
-    background: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.2);
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
-}
-
-/* 상단 작은 라벨 */
-#slide4 .ctaEyebrow {
-    font-family: var(--font-en);
-    letter-spacing: 2px;
-    font-size: clamp(12px, 1.4vw, 14px);
-    opacity: .9;
-    margin-bottom: 12px;
 }
 
 /* 메인 문구 크게 */
 #slide4 .ctaTitle {
+    font-family: "Times New Roman", Times, serif;
     font-weight: 400;
     line-height: 1.15;
-    font-size: clamp(34px, 5.2vw, 72px);
+    font-size: clamp(25px, 5.2vw, 60px);
     margin-bottom: 16px;
 }
 
@@ -698,14 +686,13 @@ body.nav-open {
     line-height: 1.7;
     font-size: clamp(14px, 2vw, 18px);
     margin: 0 auto;
+    margin-bottom: 10px;
     max-width: 64ch;
     opacity: .95;
 }
 
-/* 버튼을 좀 더 “CTA 버튼”처럼 */
 #slide4 button {
     margin-top: 26px;
-    /* 기존 80px 덮어쓰기 */
     font-size: clamp(16px, 2.2vw, 22px);
 }
 
@@ -716,7 +703,7 @@ body.nav-open {
     padding: 12px 18px;
     border: 1px solid #000;
     border-radius: 999px;
-    transition: transform .2s ease, background .2s ease;
+    transition: transform .2s ease;
 }
 
 #slide4 button a:hover {
@@ -1275,26 +1262,27 @@ body.nav-open {
 ========================================= */
 @media (max-width: 1024px) {
 
-  /* slide3 내부 텍스트/이미지 흐름은 유지(현재 구조 그대로) */
+    /* slide3 내부 텍스트/이미지 흐름은 유지(현재 구조 그대로) */
 
-  /* ✅ :has() 지원 브라우저(대부분 모바일 크롬/사파리 OK)
+    /* ✅ :has() 지원 브라우저(대부분 모바일 크롬/사파리 OK)
      버튼이 없는 슬라이드에만 버튼 공간만큼 padding-bottom 추가 */
-  @supports selector(:has(*)) {
-    #slide3 .slick-slide .centerText:not(:has(button)) {
-      padding-bottom: 92px !important; /* View More + 밑줄 정도 공간 */
+    @supports selector(:has(*)) {
+        #slide3 .slick-slide .centerText:not(:has(button)) {
+            padding-bottom: 92px !important;
+            /* View More + 밑줄 정도 공간 */
+        }
     }
-  }
 
-  /* ✅ 혹시 :has() 미지원 환경용 fallback
+    /* ✅ 혹시 :has() 미지원 환경용 fallback
      전체를 최소 높이로 맞춰서 이미지 위치가 크게 흔들리지 않게 */
-  @supports not selector(:has(*)) {
-    #slide3 .slick-slide .centerText {
-      min-height: 340px !important;
+    @supports not selector(:has(*)) {
+        #slide3 .slick-slide .centerText {
+            min-height: 340px !important;
+        }
     }
-  }
 
-  /* (선택) 이미지 위 여백이 들쑥날쑥하면 통일 */
-  #slide3 .ceterImg div {
-    margin-top: 16px !important;
-  }
+    /* (선택) 이미지 위 여백이 들쑥날쑥하면 통일 */
+    #slide3 .ceterImg div {
+        margin-top: 16px !important;
+    }
 }
