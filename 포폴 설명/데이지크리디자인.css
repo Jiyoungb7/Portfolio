@@ -1,0 +1,927 @@
+/* =========================
+   0) 커스텀 폰트 등록
+========================= */
+
+/* "cream"이라는 폰트 이름으로 외부 OTF 파일을 등록 */
+@font-face {
+  font-family: "cream";
+  src: url("./font/Cream Cake.otf");
+}
+
+/* "trendy"라는 폰트 이름으로 외부 OTF 파일을 등록 */
+@font-face {
+  font-family: "trendy";
+  src: url("./font/Amelaryas.otf");
+}
+
+/* =========================
+   1) 전역 변수 / 공통 리셋
+========================= */
+
+:root {
+  --brand: #5e2e2e;                 /* 브랜드 컬러(짙은 브라운) */
+  --glass: rgba(255, 255, 255, 0.4);/* 유리(반투명) 배경 */
+  --pinkGlass: rgba(255, 192, 203, 0.555); /* 핑크 반투명 배경 */
+  --container: 1920px;              /* 전체 레이아웃 기준 폭(고정) */
+}
+
+/* 모든 요소 기본 margin/padding 제거 + 박스 크기 계산을 border까지 포함 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 앵커 이동 시 부드럽게 스크롤 */
+html { scroll-behavior: smooth; }
+
+/* body 기본 글꼴/크기/색 */
+body {
+  font-family: "Noto Sans KR", sans-serif; /* 기본 폰트 */
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--brand); /* 기본 글자색 */
+}
+
+/* 링크 기본 밑줄 제거 + 색상 상속 */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 리스트 점 제거 */
+li { list-style: none; }
+
+/* =========================
+   2) 전체 래퍼
+========================= */
+
+#wrap {
+  width: var(--container); /* 전체 폭을 1920px로 고정 */
+  margin: 0 auto;          /* 가운데 정렬 */
+  /* ⚠️ 이 방식은 모바일에서 가로 스크롤이 생길 수 있음.
+     반응형이면 width:100%; max-width:1920px 방식 추천 */
+}
+
+/* =========================
+   3) HEADER
+========================= */
+
+/* 헤더를 화면 상단에 fixed로 고정 + 반투명 배경 */
+.headerwrap {
+  position: fixed;             /* 스크롤해도 상단 고정 */
+  left: 50%;                   /* 중앙 기준 */
+  transform: translateX(-50%); /* 정확히 중앙에 맞추기 */
+  z-index: 1;                  /* 다른 요소보다 위 */
+  width: var(--container);     /* 헤더도 1920px 고정 */
+  height: 50px;
+  padding-top: 20px;           /* 위 여백 */
+  background-color: var(--glass); /* 반투명 */
+}
+
+/* 헤더 안 링크 hover 시 반투명 */
+.headerwrap a:hover { opacity: 0.5; }
+
+/* header 영역: 기준 박스로 사용(absolute 배치 기준) */
+header {
+  position: relative;          /* util/gnb absolute의 기준 */
+  width: var(--container);
+  height: 50px;
+  margin: 0 auto;
+  cursor: pointer;             /* 헤더 위에 마우스 올리면 포인터 */
+}
+
+/* 로고 영역: 왼쪽에 float로 배치 */
+header > h1 {
+  width: 150px;
+  height: 50px;
+  float: left;
+  margin-top: -5px;            /* 위로 살짝 올림 */
+  margin-left: 20px;
+}
+
+header > h1 img {
+  width: 90%;
+  height: 80%;
+}
+
+/* util 영역: 오른쪽 상단에 absolute로 붙임 */
+.util {
+  position: absolute;
+  top: 4px;
+  right: 0;
+  width: 400px;
+  height: 50px;
+  float: right;                /* 사실 absolute면 float은 의미 거의 없음 */
+  padding-right: 20px;
+}
+
+/* util 안의 텍스트 링크들을 가로로 보이게 */
+.util a {
+  width: 80px;
+  height: 55px;
+  display: inline-block;
+}
+
+/* 장바구니 아이콘 위치를 absolute로 고정 */
+.util a > img {
+  position: absolute;
+  left: 200px;       /* 아이콘을 util 내 특정 위치에 고정 */
+  width: 20px;
+  right: 20px;       /* left와 right가 동시에 있어서 위치 계산이 애매할 수 있음 */
+}
+
+/* 검색 input: 밑줄 + 배경에 돋보기 아이콘 붙임 */
+.util input {
+  width: 80px;
+  height: 25px;
+  outline: none;                     /* 클릭 시 파란 테두리 제거 */
+  border: none;                      /* 기본 테두리 제거 */
+  border-bottom: 1px solid var(--brand); /* 밑줄만 */
+  background: transparent url(./img/픽토그램/search.png) no-repeat right top / auto 25px;
+  /* 투명 배경 + 오른쪽 위에 검색 아이콘 배치 */
+  font-size: 20px;
+  cursor: pointer;
+  padding-right: 30px;               /* 아이콘과 텍스트 겹침 방지 */
+}
+
+/* gnb: 메인 메뉴를 header 가운데 쪽에 배치 */
+.gnb {
+  position: absolute;
+  top: 0;
+  left: 270px;       /* 로고 오른쪽으로 밀어서 메뉴 시작 위치 */
+  width: 1500px;
+  height: 35px;
+  line-height: 35px;
+  float: left;       /* absolute에서 float은 의미 거의 없음 */
+}
+
+/* gnb 안의 span(밑줄 등 꾸밈용) - 현재는 안 보이게 */
+.gnb span {
+  display: none;
+  width: 50%;
+  height: 1px;
+  background-color: var(--brand);
+  margin: 0 auto;
+}
+
+/* 1차 메뉴 li들을 가로로 나열(float) */
+.gnb > li {
+  float: left;
+  width: 300px;
+  line-height: 35px;
+  text-align: center;
+}
+
+/* 2차 메뉴: 기본 숨김 */
+.lnb {
+  display: none;
+  margin-top: 15px;
+}
+
+/* 1차 메뉴에 hover하면 2차 메뉴 표시 */
+.gnb > li:hover .lnb {
+  display: block;
+  background-color: var(--glass);
+}
+
+/* =========================
+   4) MAIN SLIDER (라디오 기반)
+========================= */
+
+main {
+  width: 100%;
+  position: relative; /* labelwrap absolute 배치 기준 */
+  overflow: hidden;   /* 슬라이드 밖 내용 숨김 */
+}
+
+/* 라디오 버튼은 UI에서 안 보이게 숨김 */
+#slide1,
+#slide2,
+#slide3,
+#slide4,
+#slide5,
+#slide6 {
+  display: none;
+}
+
+/* 슬라이드 전체 묶음: 6장이라 600% */
+main > ul {
+  width: 600%;
+  transition: margin-left 0.7s; /* 슬라이드 이동 애니메이션 */
+}
+
+/* 각 슬라이드는 화면의 1/6을 차지 */
+main li {
+  width: calc(100% / 6);
+  height: 950px;
+  float: left; /* 가로로 쭉 나열 */
+}
+
+/* 각 li마다 배경 이미지를 다르게 지정 */
+main li:nth-of-type(1) { background: url(./img/main1.jpeg) no-repeat center / cover; }
+main li:nth-of-type(2) { background: url(./img/main2.jpeg) no-repeat center / cover; }
+main li:nth-of-type(3) { background: url(./img/main4.jpeg) no-repeat center / cover; }
+main li:nth-of-type(4) { background: url(./img/main5.jpeg) no-repeat center / cover; }
+main li:nth-of-type(5) { background: url(./img/main7.jpeg) no-repeat center / cover; }
+main li:nth-of-type(6) { background: url(./img/main14.jpeg) no-repeat center / cover; }
+
+/* 인디케이터 바 영역(아래쪽) */
+.labelwrap {
+  width: 100%;
+  position: absolute;
+  bottom: 10px;
+  text-align: center;
+}
+
+/* 인디케이터 바(각 label이 버튼 역할) */
+.labelwrap > label {
+  display: inline-block;
+  width: 150px;
+  height: 5px;
+  background-color: #fff;
+  transition: width 0.5s;
+  cursor: pointer;
+}
+
+/* 라디오 체크 상태에 따라 ul의 margin-left를 이동시켜 슬라이드 변경 */
+#slide1:checked ~ main > ul { margin-left: 0; }
+#slide2:checked ~ main > ul { margin-left: -100%; }
+#slide3:checked ~ main > ul { margin-left: -200%; }
+#slide4:checked ~ main > ul { margin-left: -300%; }
+#slide5:checked ~ main > ul { margin-left: -400%; }
+#slide6:checked ~ main > ul { margin-left: -500%; }
+
+/* 현재 슬라이드에 해당하는 인디케이터만 색/길이 변경 */
+#slide1:checked ~ main .labelwrap label:nth-of-type(1),
+#slide2:checked ~ main .labelwrap label:nth-of-type(2),
+#slide3:checked ~ main .labelwrap label:nth-of-type(3),
+#slide4:checked ~ main .labelwrap label:nth-of-type(4),
+#slide5:checked ~ main .labelwrap label:nth-of-type(5),
+#slide6:checked ~ main .labelwrap label:nth-of-type(6) {
+  background-color: var(--brand);
+  width: 250px; /* 선택된 바를 더 길게 */
+}
+
+/* 슬라이드 좌/우 화살표(label) 기본 숨김 */
+main ul label {
+  display: none;
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
+/* 각 슬라이드의 첫 번째 label = 왼쪽 화살표 */
+main ul label:first-of-type {
+  left: 10px;
+  top: 50%;
+  background: url(./img/픽토그램/left.png) no-repeat center / cover;
+}
+
+/* 각 슬라이드의 마지막 label = 오른쪽 화살표 */
+main ul label:last-of-type {
+  right: 10px;
+  top: 50%;
+  background: url(./img/픽토그램/right.png) no-repeat center / cover;
+}
+
+/* 현재 활성 슬라이드(li) 안의 화살표 label만 보이게 */
+#slide1:checked ~ main li:nth-of-type(1) label,
+#slide2:checked ~ main li:nth-of-type(2) label,
+#slide3:checked ~ main li:nth-of-type(3) label,
+#slide4:checked ~ main li:nth-of-type(4) label,
+#slide5:checked ~ main li:nth-of-type(5) label,
+#slide6:checked ~ main li:nth-of-type(6) label {
+  display: block;
+}
+
+/* 화살표 hover 시 반투명 */
+main label:hover { opacity: 0.8; }
+
+/* =========================
+   5) BEST 섹션
+========================= */
+
+.best {
+  width: 100%;
+  height: 750px;
+  margin: 0 auto;
+}
+
+.best > h1 {
+  width: 30px;
+  height: 30px;
+  margin: 0 auto;
+  padding-top: 50px; /* 위쪽 여백 */
+}
+
+.best > h1 img { width: 100%; height: 100%; }
+
+/* Best 텍스트 스타일(세리프 느낌) */
+.best > h2 {
+  text-align: center;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 40px;
+  font-weight: 100;
+}
+
+/* 제품 리스트 래퍼(1920 고정) */
+.bestwrap {
+  margin: 0 auto;
+  width: var(--container);
+}
+
+/* 제품 카드: float로 가로 배치 */
+.bestwrap > div {
+  float: left;
+  width: 350px;
+  text-align: center;
+  margin-left: 30px;
+  overflow: hidden; /* hover 이미지 교체 시 넘침 방지 */
+  margin-top: 20px;
+}
+
+/* 첫 카드만 마진 조정 */
+.bestwrap > div:first-of-type { margin-left: 20px; }
+
+/* 이미지 영역 크기 고정 */
+.bestwrap a {
+  display: inline-block;
+  width: 350px;
+  height: 400px;
+}
+
+.bestwrap p {
+  cursor: pointer;
+  margin-top: 25px;
+  line-height: 25px;
+}
+
+/* 상품 이미지 */
+.bestwrap img {
+  width: 350px;
+  height: 400px;
+  transition: opacity 0.4s; /* hover 시 opacity로 사라지게 */
+}
+
+/* hover 시 a에 배경이미지를 넣어 '이미지 교체' 효과 */
+.bestwrap > div:nth-of-type(1) > a:hover { background: url(./img/best1-1.jpg) center / cover; }
+.bestwrap > div:nth-of-type(2) > a:hover { background: url(./img/best2-1.jpg) center / cover; }
+bestwrap > div:nth-of-type(3) > a:hover { background: url(./img/best3-1.jpg) center / cover; }
+/* ⚠️ 위 줄은 원본에선 .bestwrap 이어야 하는데 복사 과정에서 점이 빠지면 적용 안 됨.
+   (너가 준 원본에는 .bestwrap 맞게 들어가 있었음) */
+.bestwrap > div:nth-of-type(3) > a:hover { background: url(./img/best3-1.jpg) center / cover; }
+.bestwrap > div:nth-of-type(4) > a:hover { background: url(./img/best4-1.jpg) center / cover; }
+.bestwrap > div:nth-of-type(5) > a:hover { background: url(./img/best5-1.jpg) center / cover; }
+
+/* hover 시 img를 투명하게 만들어 배경이 보이게 */
+.bestwrap > div > a:hover img { opacity: 0; }
+
+/* =========================
+   6) COLLECTION 섹션
+========================= */
+
+.collection {
+  width: var(--container);
+  height: 1900px;
+  margin: 0 auto;
+  position: relative; /* h3/button absolute 배치 기준 */
+}
+
+/* 상단 배경 이미지 + 중앙 정렬 텍스트 */
+.collectionhead {
+  height: 100%;
+  background: url("./img/스윗하트 전체샷6.png") no-repeat center / cover;
+  text-align: center;
+}
+
+.collectionhead > h1 {
+  width: 30px;
+  height: 30px;
+  margin: 0 auto;
+  padding-top: 50px;
+}
+
+.collectionhead > h1 img { width: 100%; height: 100%; }
+
+.collectionhead > h2 {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 40px;
+  font-weight: 100;
+}
+
+/* 큰 타이포(h3)를 절대 위치로 배치 */
+.collectionhead > h3 {
+  position: absolute;
+  top: 350px;
+  left: 420px;
+  font-family: "trendy"; /* @font-face 등록한 폰트 */
+  font-size: 130px;
+  font-weight: 100;
+  color: pink;
+  text-shadow: 1px 1px 10px #5e2e2e59;
+  line-height: 1.9;
+  cursor: pointer;
+}
+
+/* View More 버튼처럼 보이는 b.button */
+.collectionhead .button {
+  position: absolute;
+  left: 855px;
+  top: 950px;
+  width: 200px;
+  height: 40px;
+  border: 1px solid var(--brand);
+  padding-left: 10px;
+  cursor: pointer;
+  color: var(--brand);
+  font-size: 16px;
+  line-height: 40px;
+}
+
+.collectionhead .button:hover { background-color: #5e2e2e42; }
+
+/* 아래 3개 카드 영역 */
+.collectionbody {
+  width: 80%;
+  margin: 0 auto;
+}
+
+/* 카드 박스(3개) */
+.collectionbody > div {
+  width: 400px;
+  height: 500px;
+  float: left;          /* 가로 배치 */
+  margin: 30px 168px;   /* 가운데 띄우기용 큰 마진 */
+  overflow: hidden;     /* 확대 시 넘침 방지 */
+  position: relative;   /* strong absolute 기준 */
+}
+
+/* 카드 이미지 확대 트랜지션 */
+.collectionbody img {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s;
+}
+
+/* 첫 번째, 세 번째 박스는 좌우 마진 제거(정렬 보정) */
+.collectionbody > div:nth-of-type(1),
+.collectionbody > div:nth-of-type(3) {
+  margin: 30px 0;
+}
+
+/* hover 시 이미지 확대 */
+.collectionbody > div:hover img { transform: scale(1.2); }
+
+/* strong 텍스트를 이미지 위에 띄우기 */
+.collectionbody strong {
+  color: var(--brand);
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 10px;
+  font-size: 25px;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* =========================
+   7) MOOD 섹션
+========================= */
+
+.mood {
+  width: var(--container);
+  height: 1860px;
+  margin: 0 auto;
+  position: relative;
+  clear: both; /* 이전 float들의 영향을 끊기 */
+}
+
+.moodWrap { width: 100%; }
+
+.moodhead > h1 {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  padding-top: 50px;
+}
+
+.moodhead > h1 img { width: 100%; }
+
+.moodhead > h2 {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 40px;
+  font-weight: 100;
+  text-align: center;
+}
+
+/* Mood 섹션 View More 버튼 */
+.moodhead .button {
+  position: absolute;
+  left: 855px;
+  width: 200px;
+  height: 40px;
+  border: 1px solid var(--brand);
+  padding-left: 10px;
+  cursor: pointer;
+  color: var(--brand);
+  font-size: 16px;
+  line-height: 40px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.moodhead .button:hover { background-color: #5e2e2e42; }
+
+/* 왼쪽 큰 이미지 영역 */
+.moodmain {
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  float: left;
+  margin-top: 100px;
+}
+
+/* 이미지가 더 크게 보이도록 가로 폭 140% */
+.moodmain > div {
+  width: 140%;
+  height: 1600px;
+  position: relative;
+  right: 210px; /* 오른쪽으로 이동(결과적으로 왼쪽이 더 보이게) */
+  overflow: hidden;
+}
+
+.moodmain img { width: 100%; }
+
+/* 오른쪽 제품 6개 영역 */
+.moodwrap {
+  margin: 0 auto;
+  width: 50%;
+  float: right;
+  margin-top: 100px;
+}
+
+/* 제품 카드(2열처럼 보이도록 큰 폭/float) */
+.moodwrap > div {
+  float: left;
+  width: 458px;
+  height: 535px;
+  text-align: center;
+  margin-left: 22px;
+  overflow: hidden;
+}
+
+/* 이미지 클릭 영역 */
+.moodwrap a {
+  display: inline-block;
+  width: 380px;
+  height: 430px;
+}
+
+.moodwrap p {
+  cursor: pointer;
+  margin-top: 25px;
+  line-height: 25px;
+}
+
+.moodwrap img {
+  width: 380px;
+  height: 430px;
+  transition: 0.4s;
+}
+
+/* hover 시 배경 교체(이미지 변경 효과) */
+.moodwrap > div:nth-of-type(1) > a:hover { background: url(./img/mood1-1.jpg) center / cover; }
+.moodwrap > div:nth-of-type(2) > a:hover { background: url(./img/mood2-1.jpg) center / cover; }
+.moodwrap > div:nth-of-type(3) > a:hover { background: url(./img/mood3-1.jpg) center / cover; }
+.moodwrap > div:nth-of-type(4) > a:hover { background: url(./img/mood4-1.jpg) center / cover; }
+.moodwrap > div:nth-of-type(5) > a:hover { background: url(./img/mood5-1.jpg) center / cover; }
+.moodwrap > div:nth-of-type(6) > a:hover { background: url(./img/mood6-1.jpg) center / cover; }
+
+/* hover 시 기존 img를 투명하게 */
+.moodwrap > div > a:hover img { opacity: 0; }
+
+/* =========================
+   8) RECOMMEND 섹션
+========================= */
+
+.recommend {
+  width: var(--container);
+  height: 750px;
+  margin: 80px auto 0;
+  background: url(./img/recommend배경4.png) no-repeat center / cover;
+  clear: both; /* 위 float 영향 끊기 */
+}
+
+.recommend > h1 {
+  width: 30px;
+  height: 30px;
+  margin: 0 auto;
+  padding-top: 50px;
+}
+
+.recommend > h1 img { width: 100%; height: 100%; }
+
+.recommend > h2 {
+  text-align: center;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 40px;
+  font-weight: 100;
+}
+
+.recommendwrap {
+  text-align: center;     /* inline-block 카드들을 가운데로 */
+  width: var(--container);
+}
+
+/* 카드 3개를 inline-block으로 배치 */
+.recommendwrap > div {
+  width: 380px;
+  display: inline-block;
+  text-align: center;
+  margin-left: 30px;
+  overflow: hidden;
+  margin-top: 20px;
+  padding-bottom: 20px;
+  background-color: rgba(255, 255, 255, 0.484);
+}
+
+/* 가운데 카드만 마진으로 위치 보정 */
+.recommendwrap > div:nth-of-type(2) {
+  margin-left: 150px;
+  margin-right: 115px;
+}
+
+.recommendwrap a {
+  display: inline-block;
+  width: 380px;
+  height: 440px;
+}
+
+.recommendwrap p {
+  cursor: pointer;
+  margin-top: 10px;
+  line-height: 25px;
+}
+
+.recommendwrap img {
+  width: 380px;
+  height: 440px;
+  transition: 0.4s;
+}
+
+/* hover 시 배경 교체 */
+.recommendwrap > div:nth-of-type(1) > a:hover { background: url(./img/recommend1-1.jpg) center / cover; }
+.recommendwrap > div:nth-of-type(2) > a:hover { background: url(./img/recommend2-1.jpg) center / cover; }
+.recommendwrap > div:nth-of-type(3) > a:hover { background: url(./img/recommend3-1.jpg) center / cover; }
+
+.recommendwrap > div > a:hover img { opacity: 0; }
+
+/* =========================
+   9) SNS 섹션
+========================= */
+
+.sns {
+  width: var(--container);
+  height: 1200px;
+  margin: 0 auto;
+  clear: both;
+  position: relative; /* 내부 absolute 기준 */
+}
+
+/* 오른쪽 핑크 배경 판 */
+.back {
+  width: 30%;
+  height: 1200px;
+  float: right;
+  background-color: var(--pinkGlass);
+}
+
+/* SNS 아이콘 리스트 위치 */
+.sns ul {
+  position: absolute;
+  top: 100px;
+  right: 450px;
+}
+
+.sns li {
+  width: 45px;
+  height: 45px;
+  margin-bottom: 20px;
+}
+
+.sns li img { width: 100%; height: 100%; }
+.sns li:hover { opacity: 0.6; }
+
+/* 유튜브 썸네일 */
+.sns > .thumbnail {
+  position: absolute;
+  left: 400px;
+  top: 150px;
+  width: 380px;
+  height: 700px;
+  overflow: hidden;
+}
+
+.sns > .thumbnail img { width: 100%; height: 100%; }
+
+/* 플레이 버튼 */
+.sns > .play {
+  position: absolute;
+  left: 560px;
+  top: 460px;
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+}
+
+.sns > .play img { width: 100%; height: 100%; }
+.sns > .play:hover { opacity: 0.5; }
+
+/* sns 텍스트 기본 스타일 */
+.sns > span {
+  font-size: 50px;
+  font-weight: 150; /* ⚠️ 150은 브라우저가 100/200 등으로 근사 처리할 수 있음 */
+}
+
+.sns h1 {
+  font-size: 35px;
+  display: inline-block;
+}
+
+.sns h2 {
+  font-size: 30px;
+  display: inline;
+}
+
+/* YouTube 텍스트를 회전시켜 세로 배치 */
+.sns > .youtube {
+  position: absolute;
+  top: 320px;
+  left: 180px;
+  line-height: 1;
+  font-size: 35px;
+  transform: rotate(-90deg);
+}
+
+/* FOLLOW 텍스트 위치 */
+.sns > .follow {
+  position: absolute;
+  bottom: 240px;
+  left: 470px;
+  text-align: right;
+  line-height: 1;
+}
+
+/* 인스타 이미지 */
+.sns > .istpicture {
+  position: absolute;
+  right: 410px;
+  top: 410px;
+  width: 550px;
+  height: 550px;
+  overflow: hidden;
+}
+
+.sns > .istpicture img {
+  width: 100%;
+  transition: transform 0.5s;
+}
+
+.sns > .istpicture:hover img { transform: scale(1.2); }
+
+/* Instagram 텍스트 위치 */
+.sns > .instagram {
+  position: absolute;
+  top: 360px;
+  right: 560px;
+  line-height: 1;
+  font-size: 35px;
+}
+
+/* =========================
+   10) FOOTER
+========================= */
+
+footer {
+  width: var(--container);
+  height: 500px;
+  background-color: rgba(230, 230, 230, 0.379);
+  font-size: 14px;
+  margin: 0 auto;
+  padding-top: 10px;
+}
+
+footer a:hover { opacity: 0.6; }
+
+.footerwrap {
+  width: var(--container);
+  margin: 0 auto;
+  line-height: 2;
+}
+
+/* 푸터 로고 위치 */
+.footerwrap > h1 {
+  margin-top: 50px;
+  margin-left: 120px;
+}
+
+.footerwrap h2 { font-weight: 400; }
+
+/* footer1: 고객센터 + 계좌 */
+.footer1 {
+  padding-top: 10px;
+  width: 300px;
+  float: left;
+  margin-left: 120px;
+  margin-right: 100px;
+}
+
+/* footer2: 회사 정보 */
+.footer2 {
+  width: 700px;
+  float: left;
+}
+
+/* footer3: 링크 메뉴 + sns */
+.footer3 {
+  width: 180px;
+  float: left;
+  margin-left: 80px;
+}
+
+.footer3 img { width: 14px; height: 14px; }
+
+/* REGISTER 버튼 스타일 */
+footer button {
+  width: 200px;
+  height: 40px;
+  border: 1px solid var(--brand);
+  padding-left: 10px;
+  cursor: pointer;
+  color: var(--brand);
+  font-size: 16px;
+  line-height: 40px;
+  margin-left: 100px;
+  background: transparent;
+}
+
+footer button:hover { background-color: #5e2e2e42; }
+
+/* =========================
+   11) POPUP / ASIDE
+========================= */
+
+/* 팝업창: 고정 위치 + 앞쪽에 보이도록 z-index 높게 */
+.popup {
+  z-index: 2;
+  width: 400px;
+  height: 640px;
+  position: fixed;
+  top: 200px;
+  left: 10%;
+  text-align: center;
+  background-color: #f974a9;
+}
+
+/* 팝업 "닫기" 버튼(label) */
+.popup label {
+  cursor: pointer;
+  display: inline-block;
+  color: #fff;
+  font-size: 15px;
+  line-height: 30px;
+  font-weight: 400;
+}
+
+/* 체크박스는 화면에서 숨김 */
+#notice { display: none; }
+
+/* 체크되면 바로 뒤에 있는 .popup을 숨김 */
+#notice:checked + .popup { display: none; }
+
+/* 우측 하단 "맨 위로" 버튼 */
+aside {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #5e2e2e57;
+  color: var(--brand);
+  background-color: rgba(255, 255, 255, 0.521);
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  text-align: center;
+  line-height: 30px;
+  font-weight: 1000;
+  font-size: 25px;
+}
+
+/* aside 내부 링크를 버튼 전체로 확장 */
+aside a {
+  display: inline-block;
+  width: 100%;
+}
+
+/* hover 시 배경 살짝 강조 */
+aside:hover { background-color: #5e2e2e2f; }

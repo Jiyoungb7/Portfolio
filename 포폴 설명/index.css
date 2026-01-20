@@ -1,14 +1,26 @@
-/* Base / Reset */
+/* =========================
+   Base / Reset
+========================= */
+
+/* CSS 변수(테마/공통 값) */
 :root {
     --bg: #ff98da;
+    /* 배경 핑크 */
     --text: #000;
+    /* 기본 글자색 */
     --border: 1px solid var(--text);
+    /* 공통 테두리 */
     --wrapW: min(1600px, 91.6vw);
+    /* 전체 폭: 최대 1600px, 화면 기준 91.6vw */
     --headerH: clamp(80px, 7vw, 115px);
-    --font-kr: 'Noto Sans KR', sans-serif;
+    /* 헤더 높이(반응형) */
+    --font-kr: "Noto Sans KR", sans-serif;
+    /* 한글 폰트 */
     --font-en: "Times New Roman", Times, serif;
+    /* 영문/헤더 폰트 */
 }
 
+/* 전체 요소 기본 마진/패딩 제거 + box-sizing 통일 */
 *,
 *::before,
 *::after {
@@ -17,11 +29,13 @@
     box-sizing: border-box;
 }
 
+/* html/body를 100% 높이로 사용(섹션 높이/배치 계산에 도움) */
 html,
 body {
     height: 100%;
 }
 
+/* body 기본 스타일 */
 body {
     background: var(--bg);
     font-family: var(--font-kr);
@@ -29,16 +43,22 @@ body {
     position: relative;
 }
 
+/* 링크 기본 스타일 제거 */
 a {
     text-decoration: none;
     color: inherit;
 }
 
+/* 리스트 점 제거 */
 li {
     list-style: none;
 }
 
-/* Layout */
+/* =========================
+   Layout
+========================= */
+
+/* 전체 래퍼: 가운데 정렬 + 좌/우/하단 테두리 */
 .allWrap {
     margin: 0 auto;
     width: var(--wrapW);
@@ -47,7 +67,8 @@ li {
     border-bottom: var(--border);
 }
 
-/* 섹션 공통 */
+/* 섹션 공통: 3열 그리드(좌 80px / 가운데 1fr / 우 80px)
+   → 좌/우 여백용 aria-hidden div를 배치하기 위해 사용 */
 section {
     width: 100%;
     display: grid;
@@ -57,12 +78,17 @@ section {
     border-bottom: var(--border);
 }
 
-/* Header / Menu */
+/* =========================
+   Header / Menu
+========================= */
+
+/* 헤더는 화면 상단 고정 */
 header {
     position: fixed;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
+    /* 가운데 정렬 */
     z-index: 9999;
 
     width: min(1600px, 91.6vw);
@@ -83,6 +109,7 @@ header {
     gap: clamp(10px, 2vw, 24px);
 }
 
+/* header의 첫 번째 div(로고+햄버거)를 좌우 정렬 */
 header>div:first-of-type {
     display: flex;
     align-items: center;
@@ -93,15 +120,16 @@ header h1 {
     margin: 0;
     font-size: clamp(22px, 1.8vw, 32px);
     z-index: 6;
+    /* 메뉴 겹침 시 위로 */
 }
 
-/* index처럼 헤더/메뉴는 Times 계열 */
+/* 헤더/메뉴는 Times 계열 폰트 적용 */
 header,
 header a {
     font-family: "Times New Roman", Times, serif;
 }
 
-/* menu wrapper */
+/* 메뉴 래퍼: 가운데 정렬 */
 .menu {
     flex: 1;
     height: 100%;
@@ -115,7 +143,7 @@ header a {
     text-transform: uppercase;
 }
 
-/* ul */
+/* 메뉴 ul: 가로 배치 + 간격 */
 .menu ul {
     display: flex;
     justify-content: center;
@@ -127,32 +155,38 @@ header a {
     padding: 0;
 }
 
-/* ✅ 상단 메뉴 li만 (서브 li에 영향 X) */
+/* ✅ 상단 메뉴 li만 스타일(서브메뉴 li는 제외)
+   > 선택자를 사용해서 “1depth li”만 영향 */
 .menu>ul>li {
     position: relative;
-    padding: clamp(6px, .8vw, 10px) clamp(10px, 1.2vw, 18px);
+    padding: clamp(6px, 0.8vw, 10px) clamp(10px, 1.2vw, 18px);
     border-radius: 999px;
-    transition: border .25s;
+    /* pill */
+    transition: border 0.25s;
     white-space: nowrap;
 }
 
+/* hover 또는 fullPage가 active 처리했을 때 테두리 표시 */
 .menu>ul>li:hover,
 .menu>ul>li.active {
     border: 1px solid #000;
 }
 
 /* =========================
-Sub menu (PC: 가로 바)
+   Sub menu (PC: 가로 바)
 ========================= */
+
+/* PC에서는 서브메뉴를 “고정된 가로 바” 형태로 헤더 아래에 표시 */
 .has-sub .sub {
     position: fixed;
     top: clamp(80px, 7vw, 115px);
-    /* header 높이 */
+    /* 헤더 바로 아래 */
     left: 50%;
     transform: translateX(-50%);
     width: min(1600px, 91.6vw);
 
     height: 0;
+    /* 기본은 안 보이게(높이 0) */
     overflow: hidden;
 
     display: flex;
@@ -166,9 +200,10 @@ Sub menu (PC: 가로 바)
     background-color: #ff98da;
 
     z-index: 9998;
-    transition: height .25s ease, border-bottom .25s ease;
+    transition: height 0.25s ease, border-bottom 0.25s ease;
 }
 
+/* hover/focus/is-open일 때 높이를 주고 테두리를 그려 서브바를 펼침 */
 .has-sub:hover .sub,
 .has-sub:focus-within .sub,
 .has-sub.is-open .sub {
@@ -178,7 +213,7 @@ Sub menu (PC: 가로 바)
     border-left: 1px solid #000;
 }
 
-/* 서브 항목은 pill 제거 */
+/* 서브 항목은 상단 1depth처럼 pill 제거 */
 .sub li {
     padding: 0;
     border: 0;
@@ -191,6 +226,7 @@ Sub menu (PC: 가로 바)
     letter-spacing: 0;
     padding: 6px 8px;
     font-family: var(--font-kr);
+    /* 서브는 한글 폰트 */
 }
 
 .sub a:hover,
@@ -202,8 +238,11 @@ Sub menu (PC: 가로 바)
 /* =========================
    Hamburger (index 스타일)
 ========================= */
+
+/* 햄버거 버튼(모바일에서 display:block으로 바뀜) */
 .mui {
     display: none;
+    /* PC에서는 숨김 */
     border: 0;
     background: transparent;
     cursor: pointer;
@@ -219,10 +258,10 @@ Sub menu (PC: 가로 바)
     height: 2px;
     background: #000;
     margin: 6px auto;
-    transition: transform .25s, opacity .25s;
+    transition: transform 0.25s, opacity 0.25s;
 }
 
-/* X 모양 */
+/* 헤더에 nav-open 클래스가 붙으면 햄버거가 X로 변형 */
 header.nav-open .mui span:nth-child(1) {
     transform: translateY(8px) rotate(45deg);
 }
@@ -235,28 +274,34 @@ header.nav-open .mui span:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
 }
 
+/* 모바일 메뉴 열림 시 바디 스크롤 잠금 */
 body.nav-open {
     overflow: hidden;
 }
 
-/* Section 1 - Home */
+/* =========================
+   Section 1 - Home
+========================= */
+
+/* 홈 섹션 높이(PC 기준 고정 높이) */
 #home {
     position: relative;
     height: 750px;
 }
 
+/* 비디오를 가운데 배치(absolute) */
 #home video {
     position: absolute;
     top: 40%;
     left: 50%;
     transform: translateX(-50%);
     width: 700px;
-    /* 원래 사이즈 유지 */
     height: 400px;
     max-width: 90vw;
-    /* 작은 화면에서 깨짐 방지 */
+    /* 작은 화면에서 넘침 방지 */
 }
 
+/* 타이틀 문구(absolute) */
 #home h2 {
     width: 80%;
     position: absolute;
@@ -273,7 +318,12 @@ body.nav-open {
     line-height: 1.5;
 }
 
-/* Section 2 - About */
+/* =========================
+   Section 2 - About
+========================= */
+
+/* About 내부 그리드 레이아웃:
+   사진(photo) + info/edu/pers/career 배치 */
 .centerWrap {
     width: 100%;
     max-width: 1600px;
@@ -297,6 +347,7 @@ body.nav-open {
     font-weight: 700;
 }
 
+/* 사진(첫 번째 div)을 photo 영역으로 보내고 배경이미지로 표시 */
 #about .centerWrap>div {
     grid-area: photo;
     width: 100%;
@@ -306,6 +357,7 @@ body.nav-open {
     background: url(./img/face.jpg) no-repeat center / cover;
 }
 
+/* p들의 순서로 영역 배치 */
 .centerWrap>p:nth-of-type(1) {
     grid-area: info;
 }
@@ -322,6 +374,7 @@ body.nav-open {
     grid-area: career;
 }
 
+/* 텍스트 스타일 */
 .centerWrap p {
     margin: 0;
     height: auto;
@@ -332,11 +385,14 @@ body.nav-open {
 }
 
 .centerWrap span {
-    font-size: clamp(12px, .9vw, 15px);
+    font-size: clamp(12px, 0.9vw, 15px);
     margin-right: 10px;
 }
 
-/* Section 3 - Skills */
+/* =========================
+   Section 3 - Skills
+========================= */
+
 #skills .skillsInner {
     display: block;
     padding-bottom: 15px;
@@ -345,9 +401,10 @@ body.nav-open {
 #skills h2 {
     margin-top: 10px;
     font-size: 50px;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: "Times New Roman", Times, serif;
 }
 
+/* 바 전체 폭 */
 .bars {
     width: 80%;
     margin: 0px auto 0;
@@ -362,7 +419,7 @@ body.nav-open {
     width: 20px;
 }
 
-/* progress wrapper */
+/* 진행바 외곽(테두리 + 패딩) */
 .item {
     margin-top: 10px;
     height: 30px;
@@ -371,7 +428,8 @@ body.nav-open {
     padding: 7px;
 }
 
-/* progress bar */
+/* 실제 진행바(내부 검은 막대)
+   기본 width 0% → active 클래스가 붙으면 퍼센트로 확장 */
 .bar {
     height: 14px;
     background-color: var(--text);
@@ -380,7 +438,7 @@ body.nav-open {
     transition-delay: 0.8s;
 }
 
-/* active widths */
+/* 섹션3에 들어왔을 때 JS가 .bar에 active를 붙임 */
 .bar01.active {
     width: 70%;
 }
@@ -413,7 +471,10 @@ body.nav-open {
     width: 70%;
 }
 
-/* Section 4~7 */
+/* =========================
+   Section 4~7 (Slick slides)
+========================= */
+
 #slide1,
 #slide2,
 #slide3,
@@ -422,9 +483,10 @@ body.nav-open {
     text-align: center;
     border-bottom: var(--border);
     overflow: hidden;
+    /* 슬라이드 넘침 방지 */
 }
 
-/* slick arrows */
+/* slick arrows 위치/스타일 조정 */
 .slick-prev {
     margin-left: 100px;
     z-index: 3;
@@ -434,6 +496,7 @@ body.nav-open {
     margin-right: 100px;
 }
 
+/* slick 기본 버튼 UI 제거 */
 .slick-prev,
 .slick-next {
     -webkit-appearance: none;
@@ -444,10 +507,11 @@ body.nav-open {
     outline: none;
     box-shadow: none;
     font-size: 0;
-    /* 버튼 안의 텍스트(Prev/Next) 숨김 */
+    /* Prev/Next 텍스트 숨김 */
     line-height: 0;
 }
 
+/* slick 내부 리스트 높이 안전장치 */
 #slide1 .slick-list,
 #slide2 .slick-list,
 #slide3 .slick-list {
@@ -460,6 +524,7 @@ body.nav-open {
     position: relative;
 }
 
+/* arrow를 슬라이드 중앙 높이에 고정 */
 .slick-prev,
 .slick-next {
     top: 50%;
@@ -475,7 +540,7 @@ body.nav-open {
     right: 24px;
 }
 
-/* 하트/라인 */
+/* 하트/라인(데코) */
 #slide1 .slick-slide,
 #slide2 .slick-slide,
 #slide3 .slick-slide,
@@ -483,6 +548,7 @@ body.nav-open {
     position: relative;
 }
 
+/* 첫 번째 하트(상단) */
 #slide1 span:first-of-type,
 #slide2 span:first-of-type,
 #slide3 span:first-of-type,
@@ -492,6 +558,7 @@ body.nav-open {
     font-size: 25px;
 }
 
+/* 두 번째 하트(하단) */
 #slide1 span:nth-of-type(2),
 #slide2 span:nth-of-type(2),
 #slide3 span:nth-of-type(2),
@@ -501,6 +568,7 @@ body.nav-open {
     font-size: 25px;
 }
 
+/* 세 번째 span(세로 라인) */
 #slide1 span:last-of-type,
 #slide2 span:last-of-type,
 #slide3 span:last-of-type,
@@ -513,11 +581,12 @@ body.nav-open {
     background-color: var(--text);
 }
 
-/* content */
+/* 슬라이드 콘텐츠 배치(텍스트/이미지 2단) */
 .centerWraps {
     display: flex;
     justify-content: center;
     padding-top: var(--headerH);
+    /* 헤더 높이만큼 아래로 밀기 */
     align-items: center;
     width: 90%;
     margin: 0 auto;
@@ -533,6 +602,7 @@ body.nav-open {
     width: 45%;
 }
 
+/* 이미지 박스(고정 크기+overflow hidden으로 확대 효과) */
 .ceterImg div {
     width: 575px;
     height: 500px;
@@ -540,31 +610,33 @@ body.nav-open {
     overflow: hidden;
 }
 
-/* slide3만 살짝 다른 사이즈 유지 */
+/* slide3(비디오 썸네일)는 박스 규격을 조금 다르게 */
 #slide3 .ceterImg div {
     margin: 0 0 60px 0;
     width: 640px;
     height: auto;
 }
 
+/* 실제 이미지: 반응형 vw 기반 */
 .ceterImg img {
     margin-top: 60px;
     width: 30vw;
     transition: all 0.5s;
 }
 
+/* slide3 이미지는 조금 더 작게 */
 #slide3 .ceterImg img {
     margin-top: 100px;
     width: 25vw;
 }
 
+/* hover 시 확대 + 약간 투명 */
 .ceterImg div:hover img {
     opacity: 0.8;
     transform: scale(1.1);
 }
 
-/* typo 방지: scale 속성 대신 transform 사용(기존 시각 동일) */
-
+/* 텍스트 타이포 */
 .centerText p {
     margin-bottom: 50px;
     font-weight: 300;
@@ -583,7 +655,7 @@ body.nav-open {
     font-size: 25px;
 }
 
-/* button underline animation */
+/* View More 버튼(밑줄 효과) */
 #slide1 button,
 #slide2 button,
 #slide3 button,
@@ -592,13 +664,14 @@ body.nav-open {
     background: transparent;
     cursor: pointer;
     font-size: 20px;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Courier New", Courier, monospace;
     font-weight: 600;
     letter-spacing: 1px;
     margin-top: 80px;
     padding-bottom: 5px;
 }
 
+/* 버튼 텍스트 옆에 짧은 선(데코) */
 #slide1 button div,
 #slide2 button div,
 #slide3 button div,
@@ -610,6 +683,7 @@ body.nav-open {
     background-color: var(--text);
 }
 
+/* 버튼 아래 긴 선: hover 애니메이션 대상 */
 .centerText>b {
     display: inline-block;
     width: 180px;
@@ -618,6 +692,7 @@ body.nav-open {
     vertical-align: top;
 }
 
+/* 버튼 hover 시 b 라인 scale 애니메이션 */
 .centerText button:hover~b {
     animation: scalechange 0.6s both;
 }
@@ -634,6 +709,7 @@ body.nav-open {
     }
 }
 
+/* 키워드 pill 스타일 */
 .keyword>div {
     padding: 0 20px;
     border: 1.5px solid var(--text);
@@ -647,8 +723,8 @@ body.nav-open {
    Section 7 (#slide4) 전용 CTA 디자인
 ========================= */
 
+/* slide4는 카드가 가운데 오도록 세로 정렬 */
 #slide4 .centerWraps {
-    /* fullPage 섹션 안에서 중앙 정렬 */
     min-height: calc(100vh - var(--headerH));
     padding-top: var(--headerH);
     padding-bottom: clamp(24px, 4vw, 60px);
@@ -658,14 +734,14 @@ body.nav-open {
     align-items: center;
 }
 
+/* 기존 .centerText(왼쪽 정렬/폭 48%)을 slide4에서는 중앙 카드 폭으로 덮어쓰기 */
 #slide4 .centerText {
-    /* 기존: text-align:left + width 48% + margin-left 5% 를 덮어씀 */
     width: min(820px, 92%);
     margin-left: 0;
     text-align: center;
 }
 
-/* 카드처럼 보이게 (원하는 느낌이면 유지) */
+/* 카드 UI */
 #slide4 .ctaCard {
     width: 100%;
     border: 1px solid #000;
@@ -675,16 +751,16 @@ body.nav-open {
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
 }
 
-/* 상단 작은 라벨 */
+/* 작은 라벨 */
 #slide4 .ctaEyebrow {
     font-family: var(--font-en);
     letter-spacing: 2px;
     font-size: clamp(12px, 1.4vw, 14px);
-    opacity: .9;
+    opacity: 0.9;
     margin-bottom: 12px;
 }
 
-/* 메인 문구 크게 */
+/* 큰 타이틀 */
 #slide4 .ctaTitle {
     font-weight: 400;
     line-height: 1.15;
@@ -692,20 +768,19 @@ body.nav-open {
     margin-bottom: 16px;
 }
 
-/* 설명 문구 */
+/* 설명 */
 #slide4 .ctaDesc {
     font-weight: 300;
     line-height: 1.7;
     font-size: clamp(14px, 2vw, 18px);
     margin: 0 auto;
     max-width: 64ch;
-    opacity: .95;
+    opacity: 0.95;
 }
 
-/* 버튼을 좀 더 “CTA 버튼”처럼 */
+/* CTA 버튼처럼 보이게 (기존 margin-top 80px 덮어씀) */
 #slide4 button {
     margin-top: 26px;
-    /* 기존 80px 덮어쓰기 */
     font-size: clamp(16px, 2.2vw, 22px);
 }
 
@@ -716,23 +791,27 @@ body.nav-open {
     padding: 12px 18px;
     border: 1px solid #000;
     border-radius: 999px;
-    transition: transform .2s ease, background .2s ease;
+    transition: transform 0.2s ease, background 0.2s ease;
 }
 
+/* hover 시 반전 */
 #slide4 button a:hover {
     background: #000;
     color: #fff;
     transform: translateY(-2px);
 }
 
-/* 기존 underline(옆의 b 라인)도 중앙에 맞게 */
+/* slide4에서 밑줄(b) 중앙 정렬/폭 조정 */
 #slide4 .centerText>b {
     margin-top: 12px;
     width: min(260px, 60%);
 }
 
+/* =========================
+   Section 8 - Contact
+========================= */
 
-/* Section 8 - Contact */
+/* Contact 전체를 2컬럼 그리드로 (타이틀 / 연락처) */
 .contactWrap {
     position: relative;
     display: grid;
@@ -742,6 +821,7 @@ body.nav-open {
     line-height: 1.9;
 }
 
+/* 왼쪽: 타이틀 영역(높이 크게 잡아 중앙 느낌) */
 .contactWrap div:first-of-type {
     height: 800px;
     display: flex;
@@ -749,6 +829,7 @@ body.nav-open {
     align-items: flex-start;
 }
 
+/* 오른쪽: 구분선 + 여백 */
 .contactWrap div:last-of-type {
     border-left: var(--border);
     margin-top: 120px;
@@ -756,7 +837,7 @@ body.nav-open {
 }
 
 .contactWrap h2 {
-    font-family: 'Times New Roman', Times, serif;
+    font-family: "Times New Roman", Times, serif;
     font-size: 70px;
     margin: 0 auto;
     position: relative;
@@ -764,7 +845,7 @@ body.nav-open {
 }
 
 .contactWrap p {
-    font-family: 'Times New Roman', Times, serif;
+    font-family: "Times New Roman", Times, serif;
     margin-left: 100px;
     font-size: 30px;
 }
@@ -774,12 +855,17 @@ body.nav-open {
     margin-bottom: 35px;
 }
 
+/* 하단 카피라이트 */
 .last {
     text-align: center;
     margin-top: 20px;
 }
 
-/* 햄버거 */
+/* =================================
+   (중복 정의) 햄버거 스타일이 아래에 한 번 더 있음
+   → 기능 문제는 없지만 유지보수 관점에선 합치는 게 좋음
+================================= */
+
 .mui {
     display: none;
     border: 0;
@@ -797,10 +883,9 @@ body.nav-open {
     height: 2px;
     background: var(--text);
     margin: 6px auto;
-    transition: transform .25s, opacity .25s;
+    transition: transform 0.25s, opacity 0.25s;
 }
 
-/* X 모양 */
 header.nav-open .mui span:nth-child(1) {
     transform: translateY(8px) rotate(45deg);
 }
@@ -817,7 +902,7 @@ body.nav-open {
     overflow: hidden;
 }
 
-/* Text 사이즈 */
+/* 반응형 타이포 clamp 재정의(기존 값 덮어씀) */
 .centerText h3 {
     font-size: clamp(28px, 6vw, 50px);
 }
@@ -827,11 +912,15 @@ body.nav-open {
 }
 
 .centerText h4 {
-    font-size: clamp(14px, 3.0vw, 25px);
+    font-size: clamp(14px, 3vw, 25px);
 }
 
-/* 반응형 */
+/* =========================
+   반응형: 1400px 이하
+========================= */
 @media (max-width: 1400px) {
+
+    /* About 그리드를 2열로 축소 */
     .centerWrap {
         grid-template-columns: clamp(200px, 28vw, 280px) 1fr;
         grid-template-areas:
@@ -846,7 +935,12 @@ body.nav-open {
     }
 }
 
+/* =========================
+   반응형: 1024px 이하 (태블릿/모바일)
+========================= */
 @media screen and (max-width: 1024px) {
+
+    /* 모바일에서는 wrap 테두리 제거하고 전체 폭 사용 */
     .allWrap {
         width: 100%;
         border: none;
@@ -877,9 +971,10 @@ body.nav-open {
         display: block;
     }
 
-    /* 메뉴를 풀스크린 패널로 */
+    /* 메뉴를 풀스크린 패널로(오른쪽에서 슬라이드 인) */
     .menu {
         pointer-events: none;
+        /* 닫힘 상태 클릭 방지 */
         position: fixed;
         inset: 0;
 
@@ -888,26 +983,29 @@ body.nav-open {
         justify-content: center;
 
         transform: translateX(100%);
-        transition: transform .25s ease;
+        transition: transform 0.25s ease;
         z-index: 9998;
     }
 
+    /* header.nav-open이면 메뉴가 보임 */
     header.nav-open .menu {
         transform: translateX(0);
         pointer-events: auto;
     }
 
+    /* 모바일 메뉴는 세로 */
     .menu ul {
         flex-direction: column;
         gap: 16px;
     }
 
+    /* 모바일에서는 li가 항상 테두리 보이게 */
     .menu>ul>li {
         border: 1px solid #000;
-        /* 모바일은 항상 테두리 */
     }
 
-    /* ✅ 모바일: 서브메뉴는 hover가 아니라 click(open)으로 */
+    /* ✅ 모바일 서브메뉴: hover 대신 click(open) 방식
+     - PC처럼 fixed bar가 아니라 내부 펼침 */
     .has-sub .sub {
         position: static;
         transform: none;
@@ -917,12 +1015,14 @@ body.nav-open {
         overflow: visible;
 
         display: none;
+        /* 기본 숨김 */
         border: 1px solid #000;
         border-radius: 14px;
         padding: 12px;
         margin-top: 10px;
     }
 
+    /* .has-sub.open이 붙으면 노출 */
     .has-sub.open .sub {
         display: flex;
         flex-direction: column;
@@ -930,7 +1030,7 @@ body.nav-open {
         align-items: flex-start;
     }
 
-    /* Home */
+    /* Home: 높이를 화면 기준으로 */
     #home {
         height: 100vh;
     }
@@ -949,7 +1049,7 @@ body.nav-open {
         height: auto;
     }
 
-    /* About */
+    /* About: 모바일에서는 컬럼 대신 세로로 쌓기 */
     #about .centerWrap {
         display: flex;
         flex-direction: column;
@@ -959,10 +1059,12 @@ body.nav-open {
         padding: 40px 16px;
     }
 
+    /* grid-area 무시(모바일은 flex 기반) */
     #about .centerWrap>* {
         grid-area: auto !important;
     }
 
+    /* 사진을 원형으로 */
     #about .centerWrap>div {
         width: 200px;
         height: 200px;
@@ -979,6 +1081,7 @@ body.nav-open {
         margin-right: 0;
     }
 
+    /* 모바일에서는 하트/라인 데코 숨김 */
     #slide1 span:last-of-type,
     #slide2 span:last-of-type,
     #slide3 span:last-of-type,
@@ -993,6 +1096,7 @@ body.nav-open {
         display: none;
     }
 
+    /* 버튼 상단 여백 줄이기 */
     #slide1 button,
     #slide2 button,
     #slide3 button,
@@ -1000,16 +1104,19 @@ body.nav-open {
         margin-top: 32px;
     }
 
+    /* slide3 이미지 박스를 모바일 폭에 맞춤 */
     #slide3 .ceterImg div {
         width: min(520px, 100%);
         margin: 16px auto 0;
     }
 
+    /* slide3 이미지는 100%로 */
     #slide3 .ceterImg img {
         width: 100% !important;
         margin-top: 0;
     }
 
+    /* slick arrow 크기 */
     .slick-prev,
     .slick-next {
         width: 52px;
@@ -1022,9 +1129,10 @@ body.nav-open {
     }
 }
 
-/* 모바일 */
+/* =========================
+   반응형: 768px 이하 (모바일)
+========================= */
 @media screen and (max-width: 768px) {
-
     header {
         padding: 0;
     }
@@ -1040,7 +1148,7 @@ body.nav-open {
         line-height: 1;
     }
 
-    /* Slides */
+    /* 슬라이드 콘텐츠를 세로 스택으로 */
     .centerWraps {
         flex-direction: column;
         padding-top: 150px;
@@ -1072,7 +1180,7 @@ body.nav-open {
         display: block;
     }
 
-    /* Skills */
+    /* Skills 폭 */
     .bars {
         width: 90%;
     }
@@ -1081,7 +1189,7 @@ body.nav-open {
         margin-right: 2px;
     }
 
-    /* Contact */
+    /* Contact를 1컬럼으로 */
     .contactWrap {
         grid-template-columns: 1fr;
     }
@@ -1113,6 +1221,7 @@ body.nav-open {
         font-size: 25px;
     }
 
+    /* slide3 이미지 정렬 보정 */
     #slide3 .ceterImg div {
         display: flex;
         justify-content: center;
@@ -1129,6 +1238,7 @@ body.nav-open {
     }
 }
 
+/* 터치 기기(hover 없음)에서는 확대효과 제거 */
 @media (hover: none) {
     .ceterImg div:hover img {
         transform: none;
@@ -1136,32 +1246,29 @@ body.nav-open {
     }
 }
 
+/* =========================
+   768px 이하: 여백(헤더/섹션 시작) 재정리
+   - 모바일에서 “위/아래가 과하게 비어 보임” 해결용
+========================= */
 @media (max-width: 768px) {
-
-    /* 모바일에서 공통으로 쓰는 상단 오프셋(헤더 아래로) */
     :root {
         --mTop: 96px;
-        /* 섹션 시작 여백(헤더 고려) */
+        /* 모바일 섹션 시작 여백(헤더 고려) */
         --mBottom: 36px;
         /* 섹션 하단 여백 */
         --mGap: 14px;
         /* 요소 간 간격 */
     }
 
-    /* 헤더 자체가 너무 두꺼워져서 여백이 커 보였던 부분 줄이기 */
+    /* 헤더 높이 체감 줄이기 */
     header>div {
         padding: 1.4rem 0.8rem;
         /* 기존 2.4rem -> 줄임 */
     }
 
-    /* =========================
-     section1 (Home) 여백 정리
-     - absolute 배치 때문에 위/아래가 과하게 비어 보임
-     - 모바일에서는 자연 흐름(세로 배치)로 전환
-  ========================= */
+    /* Home을 absolute 배치 → 모바일에서는 자연 흐름(세로 배치) */
     #home {
         height: auto !important;
-        /* 기존 100vh/750px 영향 제거 */
         padding-top: var(--mTop);
         padding-bottom: var(--mBottom);
         position: relative;
@@ -1170,22 +1277,23 @@ body.nav-open {
         gap: var(--mGap);
     }
 
-    /* 양 옆 80px 그리드 때문에 답답하면(선택) */
+    /* section의 3열(80px) 그리드가 모바일에서 답답하면 1열로 */
     section {
         grid-template-columns: 1fr;
     }
 
+    /* 좌우 더미 div 숨김 */
     section>div[aria-hidden="true"] {
         display: none;
     }
 
+    /* Home 텍스트/비디오를 static으로 */
     #home h2 {
         position: static;
         transform: none;
         width: min(92vw, 560px);
         margin: 0 auto;
         font-size: 22px;
-        /* 기존 28 -> 조금 컴팩트 */
         line-height: 1.35;
     }
 
@@ -1204,10 +1312,7 @@ body.nav-open {
         display: block;
     }
 
-    /* =========================
-     section4~7 (slide1~4) 공통 여백 줄이기
-  ========================= */
-    /* 기존 .centerWraps padding-top:150px; 을 모바일에서 통일된 값으로 */
+    /* slide1~4 공통 padding-top을 통일된 mTop으로 */
     #slide1 .centerWraps,
     #slide2 .centerWraps,
     #slide3 .centerWraps,
@@ -1216,7 +1321,7 @@ body.nav-open {
         padding-bottom: var(--mBottom) !important;
     }
 
-    /* 텍스트 내부의 큰 마진들 줄이기 */
+    /* 모바일에서 텍스트 마진 줄여서 타이트하게 */
     #slide1 .centerText p,
     #slide2 .centerText p,
     #slide3 .centerText p {
@@ -1227,10 +1332,9 @@ body.nav-open {
     #slide2 .centerText h4,
     #slide3 .centerText h4 {
         margin-top: 18px;
-        /* 기존 50px -> 줄임 */
     }
 
-    /* 버튼 위쪽도 과함 -> 줄이기 */
+    /* 버튼 위 여백 줄이기 */
     #slide1 button,
     #slide2 button,
     #slide3 button,
@@ -1238,7 +1342,7 @@ body.nav-open {
         margin-top: 20px !important;
     }
 
-    /* 키워드 pill 줄 간격/크기 살짝 컴팩트하게 */
+    /* 키워드 pill 모바일용 */
     .keyword>div {
         margin-right: 8px;
         margin-top: 8px;
@@ -1246,8 +1350,7 @@ body.nav-open {
         padding: 0 14px;
     }
 
-    /* slick dots가 기본 테마에서 아래 공간을 크게 먹는 경우가 있어
-     모바일에서는 'static'으로 내려서 여백 줄이기 */
+    /* slick dots가 아래 공간을 크게 먹으면 static으로 */
     #slide1 .slick-dots,
     #slide2 .slick-dots,
     #slide3 .slick-dots {
@@ -1255,12 +1358,9 @@ body.nav-open {
         margin: 14px 0 0;
     }
 
-    /* =========================
-     section7 (slide4) CTA 카드도 모바일에서 좀 더 타이트하게
-  ========================= */
+    /* CTA 카드도 모바일에서 타이트하게 */
     #slide4 .centerWraps {
         min-height: auto !important;
-        /* 기존 min-height 때문에 커 보일 수 있음 */
     }
 
     #slide4 .ctaCard {
@@ -1270,31 +1370,29 @@ body.nav-open {
 }
 
 /* =========================================
-   section6(#slide3) : View More 유무와 상관없이 이미지 위치 통일
-   - CSS 맨 아래에 추가
+   section6(#slide3): View More 유무에 따른
+   이미지 위치 들쑥날쑥 문제를 완화
 ========================================= */
 @media (max-width: 1024px) {
-
-  /* slide3 내부 텍스트/이미지 흐름은 유지(현재 구조 그대로) */
-
-  /* ✅ :has() 지원 브라우저(대부분 모바일 크롬/사파리 OK)
-     버튼이 없는 슬라이드에만 버튼 공간만큼 padding-bottom 추가 */
-  @supports selector(:has(*)) {
-    #slide3 .slick-slide .centerText:not(:has(button)) {
-      padding-bottom: 92px !important; /* View More + 밑줄 정도 공간 */
+    /* ✅ :has() 지원 브라우저:
+     버튼이 없는 슬라이드는 하단 여백을 강제로 만들어
+     텍스트 높이를 버튼 있는 슬라이드와 비슷하게 맞춤 */
+    @supports selector(:has(*)) {
+        #slide3 .slick-slide .centerText:not(:has(button)) {
+            padding-bottom: 92px !important;
+        }
     }
-  }
 
-  /* ✅ 혹시 :has() 미지원 환경용 fallback
-     전체를 최소 높이로 맞춰서 이미지 위치가 크게 흔들리지 않게 */
-  @supports not selector(:has(*)) {
-    #slide3 .slick-slide .centerText {
-      min-height: 340px !important;
+    /* ✅ :has() 미지원 브라우저 fallback:
+     최소 높이를 부여해 레이아웃 흔들림 완화 */
+    @supports not selector(:has(*)) {
+        #slide3 .slick-slide .centerText {
+            min-height: 340px !important;
+        }
     }
-  }
 
-  /* (선택) 이미지 위 여백이 들쑥날쑥하면 통일 */
-  #slide3 .ceterImg div {
-    margin-top: 16px !important;
-  }
+    /* 이미지 박스 상단 여백 통일 */
+    #slide3 .ceterImg div {
+        margin-top: 16px !important;
+    }
 }

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<!-- HTML5 문서 선언 -->
+
+<html lang="ko">
+<!-- 문서 언어를 한국어로 지정(접근성/SEO/번역에 유리) -->
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- 한글 포함 문자 인코딩 설정 -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- 반응형(모바일에서 화면 폭을 기기 폭에 맞추기) -->
+
+  <title>데이지크</title>
+  <!-- 브라우저 탭 제목 -->
+
+  <link rel="shortcut icon" href="./img/icon.jpg" />
+  <!-- 파비콘(브라우저 탭 아이콘) -->
+
+  <link rel="stylesheet" href="./데이지크리디자인.css" />
+  <!-- 외부 CSS 파일 연결 -->
+
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet" />
+  <!-- 구글 폰트: Noto Sans KR 불러오기 -->
+</head>
+
+<body>
+  <div id="wrap">
+    <!-- 사이트 전체를 감싸는 래퍼(너 CSS에서 width를 1920px로 고정하고 중앙 정렬함) -->
+
+    <!-- ===========================
+         HEADER (상단 고정 메뉴)
+    ============================ -->
+    <div class="headerwrap">
+      <!-- 헤더 전체를 감싸는 영역(반투명 glass 배경 + fixed 고정) -->
+
+      <header>
+        <!-- 실제 헤더 내용 -->
+
+        <h1>
+          <!-- 사이트 로고(브랜드 대표 요소) -->
+          <a href="#" onclick="return false;">
+            <!-- 클릭해도 이동하지 않도록 막음 -->
+            <img src="./img/로고.png" alt="로고" />
+            <!-- 로고 이미지 -->
+          </a>
+        </h1>
+
+        <div class="util">
+          <!-- 우측 상단 유틸 영역(로그인/회원가입/장바구니/검색창) -->
+
+          <a href="https://www.dasique.co.kr/member/login.html">LOGIN</a>
+          <!-- 로그인 페이지로 이동 -->
+
+          <a href="https://www.dasique.co.kr/member/join.html">JOIN US</a>
+          <!-- 회원가입 페이지로 이동 -->
+
+          <a href="https://www.dasique.co.kr/order/basket.html">
+            <!-- 장바구니 페이지로 이동 -->
+            <img src="./img/픽토그램/shopping-bag.png" alt="장바구니" />BAG
+            <!-- 아이콘 + BAG 텍스트 -->
+          </a>
+
+          <input type="search" aria-label="검색" />
+          <!-- 검색 입력창
+               aria-label: 스크린리더 접근성(placeholder가 없어도 용도 설명) -->
+        </div>
+
+        <ul class="gnb">
+          <!-- 글로벌 네비게이션(메인 메뉴) -->
+
+          <li>
+            <h3><a href="#" onclick="return false;">ABOUT US<span></span></a></h3>
+            <!-- span은 꾸밈용(밑줄 등)인데 CSS에서 display:none 처리되어 있음 -->
+            <ul class="lnb">
+              <!-- 드롭다운 서브 메뉴 -->
+              <li><a href="#" onclick="return false;">BRAND STORY</a></li>
+              <li><a href="#" onclick="return false;">ROCATION</a></li>
+              <!-- ⚠️ 오타 가능: ROCATION -> LOCATION -->
+            </ul>
+          </li>
+
+          <li>
+            <h3><a href="#" onclick="return false;">SHOP ALL<span></span></a></h3>
+            <ul class="lnb">
+              <li><a href="#" onclick="return false;">ALL</a></li>
+              <li><a href="#" onclick="return false;">EYE</a></li>
+              <li><a href="#" onclick="return false;">LIP</a></li>
+              <li><a href="#" onclick="return false;">BLUSH</a></li>
+              <li><a href="#" onclick="return false;">NAIL</a></li>
+              <li><a href="#" onclick="return false;">BASE</a></li>
+            </ul>
+          </li>
+
+          <li>
+            <h3><a href="#" onclick="return false;">COLLECTION<span></span></a></h3>
+            <!-- 서브 메뉴 없는 단일 메뉴 -->
+          </li>
+
+          <li>
+            <h3><a href="#" onclick="return false;">BOARD<span></span></a></h3>
+            <ul class="lnb">
+              <li><a href="#" onclick="return false;">NOTICE</a></li>
+              <li><a href="#" onclick="return false;">Q&amp;A</a></li>
+              <!-- &amp; 는 HTML에서 & 를 안전하게 표현하는 이스케이프 -->
+              <li><a href="#" onclick="return false;">REVIEW</a></li>
+            </ul>
+          </li>
+        </ul>
+      </header>
+    </div>
+
+    <!-- ===========================
+         MAIN SLIDER (라디오 버튼 슬라이더)
+    ============================ -->
+
+    <input type="radio" name="pos" id="slide1" checked />
+    <!-- 라디오 버튼 1번: 기본 checked라 첫 슬라이드가 기본 노출 -->
+
+    <input type="radio" name="pos" id="slide2" />
+    <input type="radio" name="pos" id="slide3" />
+    <input type="radio" name="pos" id="slide4" />
+    <input type="radio" name="pos" id="slide5" />
+    <input type="radio" name="pos" id="slide6" />
+    <!-- name="pos"가 같으므로 한 번에 하나만 선택되는 구조
+         CSS에서 :checked 상태에 따라 main>ul margin-left를 바꿔 슬라이드 이동 -->
+
+    <main>
+      <div class="labelwrap">
+        <!-- 아래쪽 인디케이터(막대) -->
+        <label for="slide1"></label>
+        <label for="slide2"></label>
+        <label for="slide3"></label>
+        <label for="slide4"></label>
+        <label for="slide5"></label>
+        <label for="slide6"></label>
+        <!-- label 클릭하면 해당 라디오가 체크됨 => CSS로 슬라이드 이동 -->
+      </div>
+
+      <ul>
+        <!-- 실제 슬라이드 6장(각 li에 배경이미지 CSS로 지정됨) -->
+        <li>
+          <!-- 1번 슬라이드: 왼쪽(이전=6), 오른쪽(다음=2) 버튼 역할 -->
+          <label for="slide6"></label>
+          <label for="slide2"></label>
+        </li>
+        <li>
+          <label for="slide1"></label>
+          <label for="slide3"></label>
+        </li>
+        <li>
+          <label for="slide2"></label>
+          <label for="slide4"></label>
+        </li>
+        <li>
+          <label for="slide3"></label>
+          <label for="slide5"></label>
+        </li>
+        <li>
+          <label for="slide4"></label>
+          <label for="slide6"></label>
+        </li>
+        <li>
+          <label for="slide5"></label>
+          <label for="slide1"></label>
+        </li>
+        <!-- 이런 구조 덕분에 JS 없이도 “이전/다음” 클릭이 가능함 -->
+      </ul>
+    </main>
+
+    <!-- ===========================
+         BEST 섹션
+    ============================ -->
+    <section class="best">
+      <h1><img src="./img/픽토그램/badge.png" alt="베스트" /></h1>
+      <!-- 아이콘 -->
+
+      <h2>Best</h2>
+      <!-- 섹션 제목 -->
+
+      <div class="bestwrap">
+        <!-- 제품 카드 5개를 float로 좌->우 배치 -->
+
+        <div>
+          <a href="#" onclick="return false;"><img src="./img/best1.jpg" alt="립잼" /></a>
+          <p>프루티 립 잼<br /><b>17,000원</b></p>
+        </div>
+
+        <div>
+          <a href="#" onclick="return false;"><img src="./img/best2.png" alt="라이너" /></a>
+          <p>무드 슬림 라이너<br /><b>13,000원</b></p>
+        </div>
+
+        <div>
+          <a href="#" onclick="return false;"><img src="./img/best3.jpg" alt="틴트" /></a>
+          <p>쥬시 듀이 틴트 (아이스크림 컬렉션)<br /><b>17,000원</b></p>
+        </div>
+
+        <div>
+          <a href="#" onclick="return false;"><img src="./img/best4.png" alt="팔레트" /></a>
+          <p>섀도우 팔레트 13 쿨 블렌딩<br /><b>34,000원</b></p>
+        </div>
+
+        <div>
+          <a href="#" onclick="return false;"><img src="./img/best5.jpg" alt="팔레트2" /></a>
+          <p>섀도우 팔레트 03 누드포션<br /><b>34,000원</b></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===========================
+         COLLECTION 섹션
+    ============================ -->
+    <section class="collection">
+      <div class="collectionhead">
+        <!-- 컬렉션 상단: 배경이미지 + 텍스트 + View More 버튼 -->
+
+        <h1><img src="./img/픽토그램/love.png" alt="하트" /></h1>
+        <h2>Collection</h2>
+
+        <h3>
+          <a href="#" onclick="return false;">
+            Sweet Heart <br />
+            Collection
+          </a>
+        </h3>
+
+        <a href="#" onclick="return false;"><b class="button">View More</b></a>
+        <!-- b태그를 버튼처럼 스타일링(실제로는 링크) -->
+      </div>
+
+      <div class="collectionbody">
+        <!-- 컬렉션 하단: 3개 이미지 카드 -->
+
+        <div class="cbox">
+          <a href="#" onclick="return false;">
+            <strong>BRUSH</strong>
+            <!-- strong은 카드 위에 텍스트 띄우기용(absolute) -->
+            <div>
+              <img src="./img/스윗하트 블러셔 사람.jpg" alt="블러셔" />
+            </div>
+          </a>
+        </div>
+
+        <div>
+          <a href="#" onclick="return false;">
+            <strong>EYE</strong>
+            <img src="./img/스윗하트 섀도우 사람.jpg" alt="섀도우" />
+          </a>
+        </div>
+
+        <div>
+          <a href="#" onclick="return false;">
+            <strong>BASE</strong>
+            <img src="./img/스윗하트 쿠션 사람3.jpg" alt="쿠션" />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===========================
+         MOOD 섹션
+    ============================ -->
+    <section class="mood">
+      <div class="moodWrap">
+        <div class="moodhead">
+          <h1><img src="./img/픽토그램/mood.png" alt="무드" /></h1>
+          <h2>Mood</h2>
+          <a href="#" onclick="return false;"><b class="button">View More</b></a>
+        </div>
+
+        <div class="moodmain">
+          <!-- 왼쪽 큰 이미지(사람) -->
+          <div>
+            <a href="#" onclick="return false;"><img src="./img/mood사람.jpg" alt="무드시리즈" /></a>
+          </div>
+        </div>
+
+        <div class="moodwrap">
+          <!-- 오른쪽 제품 6개 그리드(실제는 float) -->
+
+          <div>
+            <a href="#" onclick="return false;"><img src="./img/mood1.jpg" alt="섀도우" /></a>
+            <p>무드 섀도우 팔레트<br /><b>39,000원</b></p>
+          </div>
+
+          <div>
+            <a href="#" onclick="return false;"><img src="./img/mood2.jpg" alt="팔레트" /></a>
+            <p>무드 페인팅 립앤치크 팔레트<br /><b>32,000원</b></p>
+          </div>
+
+          <div>
+            <a href="#" onclick="return false;"><img src="./img/mood3.jfif" alt="립펜슬" /></a>
+            <p>무드 블러 립펜슬<br /><b>14,000원</b></p>
+          </div>
+
+          <div>
+            <a href="#" onclick="return false;"><img src="./img/mood4.jpg" alt="치크" /></a>
+            <p>블렌딩 무드 치크<br /><b>24,000원</b></p>
+          </div>
+
+          <div>
+            <a href="#" onclick="return false;"><img src="./img/mood5.png" alt="립스틱" /></a>
+            <p>무드 글로우 립스틱<br /><b>17,000원</b></p>
+          </div>
+
+          <div>
+            <a href="#" onclick="return false;"><img src="./img/mood6.jfif" alt="마스카라" /></a>
+            <p>무드 업 마스카라 롱앤컬<br /><b>19,000원</b></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===========================
+         RECOMMEND 섹션
+    ============================ -->
+    <section class="recommend">
+      <h1><img src="./img/픽토그램/makeup.png" alt="화장품" /></h1>
+      <h2>Recommend</h2>
+
+      <div class="recommendwrap">
+        <div>
+          <a href="#" onclick="return false;"><img src="./img/recommend1.webp" alt="파우더" /></a>
+          <p>소프트 코튼 파우더<br /><b>18,000원</b></p>
+        </div>
+
+        <div>
+          <a href="#" onclick="return false;"><img src="./img/recommend2.jpg" alt="틴트" /></a>
+          <p>쥬시 듀이 틴트<br /><b>17,000원</b></p>
+        </div>
+
+        <div>
+          <a href="#" onclick="return false;"><img src="./img/recommend3.jpg" alt="베이스" /></a>
+          <p>코렉팅 선 베이스<br /><b>22,000원</b></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===========================
+         SNS 섹션 (유튜브/인스타)
+    ============================ -->
+    <section class="sns">
+      <div class="back"></div>
+      <!-- 오른쪽 핑크 반투명 배경판 역할 -->
+
+      <ul>
+        <!-- SNS 아이콘 세로 리스트 -->
+        <li><a href="#" onclick="return false;"><img src="./img/픽토그램/instagram.png" alt="인스타" /></a></li>
+        <li><a href="#" onclick="return false;"><img src="./img/픽토그램/facebook.png" alt="페북" /></a></li>
+        <li><a href="#" onclick="return false;"><img src="./img/픽토그램/youtube.png" alt="유튜브" /></a></li>
+      </ul>
+
+      <div class="thumbnail">
+        <!-- 유튜브 썸네일 영역 -->
+        <img src="./img/유튜브_썸네일.PNG" alt="유튜브 썸네일" />
+      </div>
+
+      <div class="play">
+        <!-- 썸네일 위 플레이 버튼 아이콘 -->
+        <a href="#" onclick="return false;" onclick="return false;">
+          <!-- ⚠️ onclick이 두 번 들어가 있음(중복) -->
+          <img src="./img/픽토그램/free-icon-play-button-5150584.png" alt="플레이" />
+        </a>
+      </div>
+
+      <span class="youtube">
+        <!-- 유튜브 섹션 텍스트(회전되어 표시) -->
+        dasique Official <h2>YouTube</h2>
+        <!-- ⚠️ span 안에 h2는 HTML 구조상 권장되지 않음(인라인 안에 블록 요소) -->
+      </span>
+
+      <span class="follow">
+        <!-- FOLLOW 텍스트 -->
+        FOLLOW US <br />
+        <h1>@dasique_official</h1>
+        <!-- ⚠️ span 안에 h1도 마찬가지로 구조상 비권장 -->
+      </span>
+
+      <div class="istpicture">
+        <!-- 인스타 대표 이미지 -->
+        <a href="#" onclick="return false;" onclick="return false;">
+          <!-- ⚠️ onclick 중복 -->
+          <img src="./img/인스타사진/제품샷.jpg" alt="인스타 사진" />
+        </a>
+      </div>
+
+      <span class="instagram">
+        dasique Official <h2>Instagram</h2>
+      </span>
+    </section>
+
+    <!-- ===========================
+         FOOTER
+    ============================ -->
+    <footer>
+      <div class="footerwrap">
+        <h1>
+          <a href="#" onclick="return false;" onclick="return false;">
+            <!-- ⚠️ onclick 중복 -->
+            <img src="./img/로고.png" alt="로고" />
+          </a>
+        </h1>
+
+        <div class="footer1">
+          <!-- 고객센터/계좌 정보 -->
+          <h2>02-6959-3877</h2>
+          OPENING HOURS. AM10-PM5 <br />
+          LUNCH BREAK. PM12:30-PM1:30<br />
+          SAT, SUN OFF <br /><br />
+          기업은행 588-036269-04-017<br />
+          예금주 : 주식회사 데이지크
+        </div>
+
+        <div class="footer2">
+          <!-- 회사 정보 -->
+          COMPANY (주) 데이지크 <br />
+          OWNER &amp; ADMIN 연정미, 이경재 <br />
+          BUSINESS NO. 769-86-01723 <br />
+          ONLINE-ORDER NO. 2020-서울강남-02057 <br />
+          ADDRESS 서울특별시 강남구 테헤란로 513, 4층(삼성동, K타워) <br />
+          TEL 02-6959-3877 <br />
+          DOMESTIC SALES md@byecom.co.kr <br />
+          OVERSEAS SALES overseas@byecom.co.kr <br />
+          MARKETING marketing@byecom.co.kr <br />
+          반품주소 서울시 광진구 강변역로2 광진우체국 C동 3층 큐트레이딩 데이지크 TEL)02-6959-3877
+        </div>
+
+        <div class="footer3">
+          <!-- 약관/링크 + SNS -->
+          <a href="#" onclick="return false;" onclick="return false;">COMPANY</a><br />
+          <a href="#" onclick="return false;" onclick="return false;">AGREEMENT</a><br />
+          <a href="#" onclick="return false;" onclick="return false;">PRIVACY POLICY</a><br />
+          <a href="#" onclick="return false;" onclick="return false;">GUIDE</a><br />
+          <a href="#" onclick="return false;" onclick="return false;">BUSINESS LICENSE</a>
+
+          <br /><br /><br /><br />
+
+          <p>
+            FOLLOW US
+            <a href="#" onclick="return false;" onclick="return false;"><img src="./img/픽토그램/instagram.png" alt="인스타" /></a>
+            <a href="#" onclick="return false;" onclick="return false;"><img src="./img/픽토그램/facebook.png" alt="페북" /></a>
+            <a href="#" onclick="return false;" onclick="return false;"><img src="./img/픽토그램/youtube.png" alt="유튜브" /></a>
+          </p>
+        </div>
+
+        <button type="button">
+          <!-- 버튼 요소(실제로는 링크를 내부에 넣음) -->
+          <a href="#" onclick="return false;">REGISTER</a>
+          <!-- ⚠️ 버튼 안에 a는 가능은 하지만 일반적으로는 버튼에 click을 주거나 a를 버튼처럼 스타일링 권장 -->
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ===========================
+       POPUP (체크박스로 닫기)
+  ============================ -->
+
+  <input type="checkbox" id="notice" />
+  <!-- 체크박스: 닫기 기능용(체크되면 popup 숨김) -->
+
+  <div class="popup">
+    <!-- 고정 팝업창 -->
+    <a href="#" onclick="return false;" onclick="return false;">
+      <img src="./img/팝업창.jpg" alt="팝업" />
+    </a>
+    <label for="notice">닫기</label>
+    <!-- label을 누르면 #notice 체크됨 => CSS로 popup display:none -->
+  </div>
+
+  <!-- ===========================
+       BACK TO TOP (wrap으로 이동)
+  ============================ -->
+  <aside><a href="#wrap">︿</a></aside>
+  <!-- 앵커로 #wrap (페이지 맨 위)로 스크롤 이동
+       html { scroll-behavior:smooth } 때문에 부드럽게 이동 -->
+</body>
+</html>

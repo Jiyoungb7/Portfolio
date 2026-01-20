@@ -41,46 +41,47 @@ $(function () {
 
     // ----- fullPage v2.9.7 -----
     function initFullpage() {
-        // 이미 초기화되어 있으면 중복 방지
         if ($("html").hasClass("fp-enabled")) return;
+
+        const careerMenu = document.querySelector('.menu li[data-menuanchor="section7"]');
 
         $("#fullpage").fullpage({
             anchors: ["section1", "section2", "section3", "section4", "section5", "section6", "section7", "section8"],
             menu: ".menu",
             navigation: true,
             scrollingSpeed: 1000,
-
-            // 모바일에서도 강제로 fullpage 동작 유지하고 싶으면 아래 유지 (기본값 true)
             autoScrolling: true,
             fitToSection: true,
+
+            // ✅ 추가: 모바일(<=1024)에서는 fullpage 자동 해제(자연 스크롤)
+            responsiveWidth: 1024,
+            responsiveHeight: 700,
+            afterResponsive: function (isResponsive) {
+                // 슬릭 레이아웃도 같이 재정렬
+                setTimeout(refreshSlick, 80);
+            },
 
             afterRender: function () {
                 setTimeout(refreshSlick, 80);
             },
 
-            afterLoad: function () {
+            // ✅ v2: afterLoad(anchorLink, index)
+            afterLoad: function (anchorLink, index) {
                 requestAnimationFrame(refreshSlick);
 
-                const careerMenu = document.querySelector(
-                    '.menu li[data-menuanchor="section7"]'
-                );
-
                 if (!careerMenu) return;
-
-                if (anchorLink === "section7") {
-                    careerMenu.classList.add("is-open");
-                } else {
-                    careerMenu.classList.remove("is-open");
-                }
+                if (anchorLink === "section7") careerMenu.classList.add("is-open");
+                else careerMenu.classList.remove("is-open");
             },
 
-            onLeave: function (index, nextIndex) {
-                // skills는 3번째 섹션 (v2는 index가 1부터 시작)
+            // ✅ v2: onLeave(index, nextIndex, direction)
+            onLeave: function (index, nextIndex, direction) {
                 if (nextIndex === 3) $(".bar").addClass("active");
                 else $(".bar").removeClass("active");
             },
         });
     }
+
 
     initFullpage();
 

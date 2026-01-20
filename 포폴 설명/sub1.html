@@ -1,36 +1,63 @@
 <!DOCTYPE html>
+<!-- 문서 타입 선언: HTML5 문서임을 브라우저에 알림 -->
 <html lang="ko">
+<!-- lang="ko": 문서 기본 언어가 한국어임을 명시(접근성/SEO에 도움) -->
 
 <head>
+    <!-- 문서의 문자 인코딩: UTF-8(한글 포함 대부분 문자 정상 표시) -->
     <meta charset="UTF-8">
+
+    <!-- IE(구형) 호환성 설정: 최신 렌더링 엔진 사용 -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- 반응형 뷰포트: 모바일에서 화면 폭을 기기 폭에 맞추고 기본 확대 비율 1 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 브라우저 탭/검색 결과에 보이는 제목 -->
     <title>김지영의 포트폴리오</title>
+
+    <!-- 서브 페이지 전용/공용 스타일 연결 -->
     <link rel="stylesheet" href="sub.css">
+
+    <!-- 파비콘(탭 아이콘) -->
     <link rel="shortcut icon" href="./img/파비콘.jpg">
 
+    <!-- 구글 폰트: Noto Sans KR (다양한 굵기 로드) -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
         rel="stylesheet">
 
+    <!-- jQuery 로드: 아래 sub.js에서 $(document).ready 등 사용 -->
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 
+    <!-- Swiper(슬라이더 라이브러리) JS -->
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+    <!-- Swiper 기본 스타일(CSS) -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 </head>
+
+<!-- body.subpage: "서브 페이지" 전용 스타일/동작을 켜기 위한 클래스 -->
 
 <body class="subpage">
     <header>
         <div>
+            <!-- 사이트 로고/타이틀: 클릭하면 index.html의 section1으로 이동 -->
             <h1><a href="./index.html#section1">Portfolio</a></h1>
 
-            <!-- 모바일 햄버거 -->
+            <!-- 모바일 햄버거 버튼 -->
+            <!-- aria-label: 스크린리더용 라벨 -->
+            <!-- aria-expanded: 메뉴가 열려있는지 여부(true/false). JS에서 토글 -->
             <button class="mui" type="button" aria-label="메뉴 열기" aria-expanded="false">
+                <!-- span 3개: 햄버거 3줄. CSS에서 X로 변환됨 -->
                 <span></span><span></span><span></span>
             </button>
         </div>
 
+        <!-- 메인 내비게이션 -->
         <nav class="menu" aria-label="Main navigation">
             <ul>
+                <!-- data-menuanchor: (다른 플러그인/스크립트에서 쓰는 경우가 있어 보존) -->
+                <!-- a href: index.html로 돌아가 해당 섹션 앵커로 이동 -->
                 <li data-menuanchor="section1"><a href="./index.html#section1">Home</a></li>
                 <li data-menuanchor="section2"><a href="./index.html#section2">About</a></li>
                 <li data-menuanchor="section3"><a href="./index.html#section3">Skills</a></li>
@@ -38,12 +65,19 @@
                 <li data-menuanchor="section5"><a href="./index.html#section5">WebSite</a></li>
                 <li data-menuanchor="section6"><a href="./index.html#section6">Video</a></li>
 
-                <!-- 서브메뉴 유지 -->
+                <!-- "서브메뉴 유지" 영역 -->
+                <!-- has-sub: 서브메뉴가 있는 항목 표시 -->
+                <!-- active: 현재 상단 메뉴에서 Career 탭 활성 표시 -->
                 <li class="has-sub active">
+                    <!-- aria-haspopup: 서브메뉴가 있음을 알림 -->
+                    <!-- aria-expanded: 모바일에서 클릭으로 열릴 때 JS가 토글 -->
                     <a href="./index.html#section4" aria-haspopup="true" aria-expanded="false">Career</a>
+
+                    <!-- 서브메뉴(카테고리) -->
                     <ul class="sub">
-                        <li><a class="ko" href="./sub1.html">제안서</a></li>
-                        <li><a class="ko active" href="./sub2.html">홍보물</a></li>
+                        <!-- 현재 페이지 sub1.html을 active로 표시 -->
+                        <li><a class="ko active" href="./sub1.html">제안서</a></li>
+                        <li><a class="ko" href="./sub2.html">홍보물</a></li>
                         <li><a class="ko" href="./sub3.html">바이럴 이미지</a></li>
                         <li><a class="ko" href="./sub4.html">홈페이지 / 랜딩</a></li>
                         <li><a class="ko" href="./sub5.html">그 외 작업</a></li>
@@ -55,35 +89,50 @@
         </nav>
     </header>
 
+    <!-- 본문 섹션 -->
     <section>
         <div class="inner">
+            <!-- 페이지 타이틀 영역 -->
             <div class="tit">
-                <h3>Promotion Images Design</h3>
-                <p class="ko">홍보물 이미지 디자인</p>
+                <h3>Proposal Design</h3>
+                <p class="ko">제안서 디자인</p>
             </div>
+
+            <!-- 카드(리스트)들을 3열로 배치하는 래퍼 -->
             <div class="list_wrap">
+
+                <!-- ========== 1번째 항목(카드) ========== -->
                 <ul class="line">
                     <li class="list">
+
+                        <!-- 상세 팝업(오버레이) -->
+                        <!-- 기본은 숨김, 썸네일 클릭 시 .active 붙어서 표시 -->
                         <div class="detailPage">
+
+                            <!-- Swiper 컨테이너 역할 -->
+                            <!-- detailPage_slide_wrap1: 항목별로 구분하려고 클래스 붙임(필수는 아님) -->
                             <div class="detailPage_slide_wrap detailPage_slide_wrap1">
+                                <!-- Swiper의 슬라이드 래퍼 -->
                                 <ul class="swiper-wrapper">
+                                    <!-- Swiper 슬라이드 1장(지금은 1개만 들어있음) -->
                                     <li class="swiper-slide">
-                                        <img src="img/201/paper1.png" alt="detail_page_images">
-                                    </li>
-                                    <li class="swiper-slide">
-                                        <img src="img/201/paper2.jpg" alt="detail_page_images">
-                                    </li>
-                                    <li class="swiper-slide">
-                                        <img src="img/201/paper3.jpg" alt="detail_page_images">
+                                        <img src="img/201/ppt1.jpg" alt="detail_page_images">
                                     </li>
                                 </ul>
                             </div>
+
+                            <!-- Swiper 네비게이션 버튼(다음/이전) -->
+                            <!-- JS에서 이 버튼들을 찾아 Swiper navigation으로 연결 -->
                             <div class="swiper-button-next"></div>
                             <div class="swiper-button-prev"></div>
                         </div>
+
+                        <!-- 리스트에 보이는 썸네일(사용자가 클릭하는 영역) -->
                         <div class="thumbnail">
                             <img src="img/201/paper1.png" alt="list_image">
                         </div>
+
+                        <!-- 카드 설명 텍스트 -->
                         <dl>
                             <dt class="ko">병원 협력사</dt>
                             <dd class="ko">삽지</dd>
@@ -92,25 +141,28 @@
                     </li>
                 </ul>
 
+                <!-- ========== 2번째 항목(카드) ========== -->
                 <ul class="line">
                     <li class="list">
                         <div class="detailPage">
                             <div class="detailPage_slide_wrap detailPage_slide_wrap2">
                                 <ul class="swiper-wrapper">
                                     <li class="swiper-slide">
-                                        <img src="img/201/star1.png" alt="detail_page_images">
-                                    </li>
-                                    <li class="swiper-slide">
-                                        <img src="img/201/star2.png" alt="detail_page_images">
+                                        <img src="img/201/ppt2.jpg" alt="detail_page_images">
                                     </li>
                                 </ul>
                             </div>
+
+                            <!-- 2번째 항목은 버튼에 next2/prev2 클래스 추가(디자인/구분용) -->
+                            <!-- JS는 siblings(".swiper-button-next")로 찾기 때문에 추가 클래스가 있어도 정상 -->
                             <div class="swiper-button-next next2"></div>
                             <div class="swiper-button-prev prev2"></div>
                         </div>
+
                         <div class="thumbnail">
                             <img src="img/201/star1.png" alt="list2_image">
                         </div>
+
                         <dl>
                             <dt class="ko">안과</dt>
                             <dd class="ko">원내 비치물</dd>
@@ -119,22 +171,25 @@
                     </li>
                 </ul>
 
+                <!-- ========== 3번째 항목(카드) ========== -->
                 <ul class="line">
                     <li class="list">
                         <div class="detailPage">
                             <div class="detailPage_slide_wrap detailPage_slide_wrap3">
                                 <ul class="swiper-wrapper">
                                     <li class="swiper-slide">
-                                        <img src="img/201/card.jpg" alt="detail_page_images">
+                                        <img src="img/201/ppt3.jpg" alt="detail_page_images">
                                     </li>
                                 </ul>
                             </div>
                             <div class="swiper-button-next"></div>
                             <div class="swiper-button-prev"></div>
                         </div>
+
                         <div class="thumbnail">
                             <img src="img/201/card.jpg" alt="list_image">
                         </div>
+
                         <dl>
                             <dt class="ko">안과</dt>
                             <dd class="ko">원내 비치물</dd>
@@ -142,9 +197,12 @@
                         </dl>
                     </li>
                 </ul>
-            </div>
-        </div>
+
+            </div><!-- /.list_wrap -->
+        </div><!-- /.inner -->
     </section>
+
+    <!-- 페이지 하단에서 sub.js 로드: DOM이 만들어진 뒤 실행되도록 -->
     <script src="./sub.js"></script>
 </body>
 

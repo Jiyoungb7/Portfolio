@@ -11,6 +11,9 @@
   --padX: 6.0rem;
   --headerZ: 999;
   --popupZ: 9999;
+
+  --linePadX: 6rem;
+  /* section .inner의 좌우 패딩과 동일 */
 }
 
 *,
@@ -88,9 +91,7 @@ header {
   background-color: #fff;
   color: #000;
 
-  border-bottom: 1px solid #000;
-
-  display: flex;
+  border-bottom: 0px display: flex;
   align-items: center;
   justify-content: space-between;
 
@@ -190,11 +191,32 @@ header a {
   border-bottom: 1px solid #000;
 }
 
-/* 서브 항목은 pill 제거 */
-.sub li {
-  padding: 0;
-  border: 0;
-  border-radius: 0;
+.has-sub .sub,
+.has-sub .sub a,
+.has-sub .sub a.ko {
+  font-family: 'Noto Sans KR', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+body.subpage .has-sub .sub {
+  height: 60px;
+  border-bottom: 1px solid #000;
+}
+
+/* hover가 없어도 유지 */
+body.subpage .has-sub:hover .sub,
+body.subpage .has-sub:focus-within .sub {
+  height: 60px;
+  border-bottom: 1px solid #000;
+}
+
+/* 서브바만큼 아래 컨텐츠 내려주기 */
+body.subpage section {
+  padding-top: calc(clamp(80px, 7vw, 115px) + 60px);
+}
+
+/* Career(현재 탭) 더 진하게 */
+body.subpage .menu>ul>li.has-sub>a {
+  font-weight: 700;
 }
 
 .sub a {
@@ -202,6 +224,12 @@ header a {
   text-transform: none;
   letter-spacing: 0;
   padding: 6px 8px;
+}
+
+.sub a:hover,
+.sub a:focus-visible {
+  font-weight: 700;
+  border-bottom: 1px solid black;
 }
 
 .sub a.active {
@@ -445,26 +473,6 @@ section .inner .list_wrap>ul>li dl dd {
 }
 
 /* 반응형 */
-@media screen and (min-width: 1440px) and (max-width: 1679px) {
-  html {
-    font-size: 50%;
-  }
-}
-
-@media screen and (min-width: 1024px) and (max-width: 1439px) {
-  html {
-    font-size: 50%;
-  }
-
-  section .inner .list_wrap>ul>li {
-    padding: 5.6rem 5.6rem 0;
-  }
-
-  section .inner .list_wrap>ul>li:last-child {
-    padding: 5.6rem 5.6rem;
-  }
-}
-
 @media (max-width: 1024px) {
   header {
     justify-content: flex-start;
@@ -604,5 +612,75 @@ section .inner .list_wrap>ul>li dl dd {
 
   section .inner .list_wrap>ul:first-child>li:first-child {
     border-top: none;
+  }
+}
+
+/* 서브메뉴 띄우기 수정 */
+/* (선택) JS가 값 못 잡았을 때 기본값 */
+:root {
+  --headerH: 90px;
+}
+
+/* ✅ subpage 모바일: 햄버거 안 열어도 서브바 항상 노출 */
+@media (max-width: 1024px) {
+  body.subpage .subbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: var(--headerH);
+    z-index: 9998;
+    background: #fff;
+    border-bottom: 1px solid #000;
+
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+  }
+
+  /* 복제된 ul.sub가 기존 fixed 스타일을 갖고 있으니 여기서 무조건 풀어줌 */
+  body.subpage .subbar .sub {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+
+    display: flex !important;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 14px;
+
+    padding: 0 !important;
+    border-bottom: 0 !important;
+    background: transparent !important;
+  }
+
+  body.subpage .subbar .sub a {
+    font-family: 'Noto Sans KR', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    font-size: 14px;
+    padding: 6px 8px;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  /* ✅ 원래 햄버거 메뉴 안의 서브는 중복 방지로 숨김 (원하면 이 줄 삭제) */
+  body.subpage .menu .has-sub .sub {
+    display: none !important;
+  }
+
+  /* ✅ 고정 header + 고정 subbar 만큼 컨텐츠 내려주기 */
+  body.subpage section {
+    padding-top: calc(var(--headerH) + 60px);
+  }
+}
+
+/* 데스크탑에서는 subbar 숨김 */
+@media (min-width: 1025px) {
+  body.subpage .subbar {
+    display: none;
   }
 }

@@ -2,6 +2,7 @@ $(document).ready(function () {
     // 초기 실행, 이벤트 바인딩
     controlMouse();
     initAnimations();
+    initSubBar();   // ✅ 추가
     initMenu();
     initAllSwipers();
     handleDetailPage();
@@ -26,6 +27,30 @@ function initAnimations() {
     });
 }
 
+/* ✅ header 높이를 CSS 변수로 동기화 */
+function syncHeaderHeight() {
+    var h = $("header").outerHeight() || 0;
+    document.documentElement.style.setProperty("--headerH", h + "px");
+}
+
+/* ✅ subpage면 모바일에서 서브를 “일반 화면”에 고정 노출시키는 subbar 생성 */
+function initSubBar() {
+    syncHeaderHeight();
+    $(window).on("resize", syncHeaderHeight);
+
+    if (!$("body").hasClass("subpage")) return;
+    if ($(".subbar").length) return; // 중복 생성 방지
+
+    var $originSub = $(".has-sub > .sub").first();
+    if (!$originSub.length) return;
+
+    // 서브 ul 복제해서 header 아래에 붙임
+    var $cloneSub = $originSub.clone();
+    var $subbar = $('<nav class="subbar" aria-label="Career sub navigation"></nav>');
+    $subbar.append($cloneSub);
+    $("header").after($subbar);
+}
+
 // 상단 메뉴
 function initMenu() {
     var BP = 1024;
@@ -41,7 +66,7 @@ function initMenu() {
     });
 
     // 모바일: 메뉴 클릭 시 닫기 (서브 토글 제외)
-    $header.find(".menu a").on("click", function (e) {
+    $header.find(".menu a").on("click", function () {
         var $li = $(this).closest("li");
 
         // 서브가 있는 항목은 모바일에서 토글로
@@ -81,7 +106,6 @@ function initMenu() {
 function initAllSwipers() {
     // 상세페이지 내의 슬라이드들 자동 루프 초기화
     $(".detailPage_slide_wrap").each(function (index, element) {
-        // 현재 슬라이더의 형제 요소인 next/prev 버튼을 찾음
         const nextBtn = $(element).siblings(".swiper-button-next")[0];
         const prevBtn = $(element).siblings(".swiper-button-prev")[0];
 

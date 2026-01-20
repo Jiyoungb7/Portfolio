@@ -1,0 +1,796 @@
+@charset "utf-8";
+/* CSS 인코딩 선언(한글 주석/문자 안전) */
+
+/* ===== CSS 변수(테마/공통 값) ===== */
+:root {
+    --text: #141414;
+    /* 기본 글자색 */
+    --muted: #b4b4b4;
+    /* 보조 글자색(연한 회색) */
+    --line: #646464;
+    /* 구분선 색 */
+
+    --bg: #ffffff;
+    /* 배경색 */
+    --header-bg: rgba(255, 255, 255, 0.6);
+    /* (현재는 header에 직접 #fff 사용 중) */
+
+    --padX: 6.0rem;
+    /* 좌우 패딩 기본값 */
+    --headerZ: 999;
+    /* 헤더 z-index(현재 header는 9999로 따로 지정됨) */
+    --popupZ: 9999;
+    /* 상세 팝업 z-index */
+}
+
+/* ===== CSS Reset(기본 여백 제거/박스모델 통일) ===== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    /* padding/border 포함한 크기 계산 */
+    margin: 0;
+    padding: 0;
+}
+
+/* rem 기준 폰트(62.5% -> 1rem=10px처럼 계산하기 쉬움) */
+html {
+    font-size: 62.5%;
+}
+
+/* body 기본 스타일 */
+body {
+    font-family: 'Noto Sans KR', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.4;
+    position: relative;
+    /* 내부 absolute 요소 기준이 필요할 때 대비 */
+}
+
+/* 리스트 마커 제거 */
+ul,
+ol {
+    list-style: none;
+}
+
+/* 링크 기본 밑줄 제거 + 글자색 상속 */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* 이미지: 블록 요소 + 반응형(넘치지 않게) */
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* 한글 텍스트에 자간 조정 */
+.ko {
+    letter-spacing: -1px;
+}
+
+/* ===== 스크롤바 커스텀(크롬/사파리 계열) ===== */
+body::-webkit-scrollbar,
+.detailPage::-webkit-scrollbar {
+    width: 12px;
+    /* 스크롤바 두께 */
+}
+
+body::-webkit-scrollbar-track,
+.detailPage::-webkit-scrollbar-track {
+    background-color: #b9b9b9;
+    /* 트랙 배경 */
+}
+
+body::-webkit-scrollbar-thumb,
+.detailPage::-webkit-scrollbar-thumb {
+    border-radius: 12px;
+    /* 둥근 손잡이 */
+    background-color: #888888;
+    /* 손잡이 색 */
+}
+
+/* ===== 스크롤 잠금(팝업/메뉴 열렸을 때) ===== */
+body.active {
+    overflow: hidden;
+    /* body 스크롤 막기 */
+}
+
+/* ===== 헤더(상단 고정) ===== */
+header {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    /* 가운데 정렬 */
+    z-index: 9999;
+
+    width: min(1600px, 91.6vw);
+    /* 최대 1600, 화면 작으면 vw 기준 */
+    height: clamp(80px, 7vw, 115px);
+    /* 반응형 높이(최소/중간/최대) */
+
+    background-color: #fff;
+    color: #000;
+
+    border-bottom: 1px solid #000;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding-inline: clamp(14px, 3vw, 80px);
+    /* 좌우 패딩 반응형 */
+    gap: clamp(10px, 2vw, 24px);
+    /* 내부 요소 간격 */
+}
+
+/* header 안에서 첫 번째 div(로고/햄버거 감싸는 영역) */
+header>div:first-of-type {
+    display: flex;
+    align-items: center;
+    gap: clamp(10px, 2vw, 18px);
+}
+
+/* 로고 타이틀 */
+header h1 {
+    margin: 0;
+    font-size: clamp(22px, 1.8vw, 32px);
+    z-index: 6;
+    /* 메뉴와 겹칠 때 우선순위 */
+}
+
+/* index처럼 헤더/메뉴는 Times 계열로 사용 */
+header,
+header a {
+    font-family: "Times New Roman", Times, serif;
+}
+
+/* ===== 메뉴(nav) 영역 ===== */
+.menu {
+    flex: 1;
+    /* 헤더 내에서 남는 공간을 차지 */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+
+    font-size: clamp(12px, 0.95vw, 15px);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    /* 영문 대문자 스타일 */
+}
+
+/* 메뉴 ul: 가로 정렬 + 줄바꿈 허용 */
+.menu ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: clamp(6px, 1.2vw, 18px);
+
+    margin: 0;
+    padding: 0;
+}
+
+/* ✅ 상단 1차 메뉴 li만 스타일 (서브 li에는 영향 주지 않게 > 사용) */
+.menu>ul>li {
+    position: relative;
+    padding: clamp(6px, .8vw, 10px) clamp(10px, 1.2vw, 18px);
+    border-radius: 999px;
+    /* pill 형태 */
+    transition: border .25s;
+    white-space: nowrap;
+    /* 줄바꿈 방지 */
+}
+
+/* hover 또는 active인 상단 메뉴에 테두리 표시 */
+.menu>ul>li:hover,
+.menu>ul>li.active {
+    border: 1px solid #000;
+}
+
+/* =========================
+   Sub menu (PC: 가로 바)
+========================= */
+/* Career 하위 .sub: 헤더 아래에 "바(bar)" 형태로 펼쳐짐 */
+.has-sub .sub {
+    position: fixed;
+    top: clamp(80px, 7vw, 115px);
+    /* header 높이만큼 아래 */
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(1600px, 91.6vw);
+
+    height: 0;
+    /* 기본은 접혀있음 */
+    overflow: hidden;
+    /* 접힌 상태에서 숨김 */
+
+    display: flex;
+    justify-content: end;
+    /* 오른쪽 정렬 */
+    align-items: center;
+    gap: 40px;
+
+    padding: 0 clamp(14px, 3vw, 80px);
+
+    border-bottom: 0;
+    background-color: #fff;
+
+    z-index: 9998;
+    /* header(9999) 바로 아래 */
+    transition: height .25s ease, border-bottom .25s ease;
+}
+
+/* Career에 hover 또는 키보드 포커스가 들어오면 sub 바 펼침 */
+.has-sub:hover .sub,
+.has-sub:focus-within .sub {
+    height: 60px;
+    border-bottom: 1px solid #000;
+}
+
+/* 서브메뉴는 한글 폰트로 되돌림(상단 메뉴는 Times 계열) */
+.has-sub .sub,
+.has-sub .sub a,
+.has-sub .sub a.ko {
+    font-family: 'Noto Sans KR', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+/* subpage에서는 hover 없어도 항상 sub 바 유지(현재 페이지가 서브 페이지니까) */
+body.subpage .has-sub .sub {
+    height: 60px;
+    border-bottom: 1px solid #000;
+}
+
+/* hover가 없어도 유지(안전장치) */
+body.subpage .has-sub:hover .sub,
+body.subpage .has-sub:focus-within .sub {
+    height: 60px;
+    border-bottom: 1px solid #000;
+}
+
+/* 서브바 높이만큼 아래 컨텐츠를 내려서 겹침 방지 */
+body.subpage section {
+    padding-top: calc(clamp(80px, 7vw, 115px) + 60px);
+}
+
+/* Career(현재 탭) 강조 */
+body.subpage .menu>ul>li.has-sub>a {
+    font-weight: 700;
+}
+
+/* 서브 메뉴 링크 스타일 */
+.sub a {
+    font-size: 14px;
+    text-transform: none;
+    /* 대문자 해제 */
+    letter-spacing: 0;
+    padding: 6px 8px;
+}
+
+/* 서브 메뉴 hover/포커스 시 강조 + 밑줄 느낌 */
+.sub a:hover,
+.sub a:focus-visible {
+    font-weight: 700;
+    border-bottom: 1px solid black;
+}
+
+/* 현재 서브 페이지(active) 강조 */
+.sub a.active {
+    font-weight: 700;
+}
+
+/* =========================
+   Hamburger (index 스타일)
+========================= */
+/* 햄버거 버튼: PC에서는 숨기고, 모바일에서만 보이게 */
+.mui {
+    display: none;
+    /* 기본: 숨김 */
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+    position: relative;
+    z-index: 10000;
+    /* 메뉴 오버레이보다 위로 */
+}
+
+/* 햄버거 줄 3개 */
+.mui span {
+    display: block;
+    width: 28px;
+    height: 2px;
+    background: #000;
+    margin: 6px auto;
+    transition: transform .25s, opacity .25s;
+}
+
+/* 메뉴 열렸을 때(X 모양) - header.nav-open이 붙으면 변환 */
+header.nav-open .mui span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+header.nav-open .mui span:nth-child(2) {
+    opacity: 0;
+}
+
+header.nav-open .mui span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* 메뉴 열리면 body 스크롤 잠금 */
+body.nav-open {
+    overflow: hidden;
+}
+
+/* ===== 섹션 기본 레이아웃 ===== */
+section {
+    position: relative;
+    display: block;
+    padding: 9.7rem 0 0;
+    /* 상단 여백 */
+    text-align: left;
+    overflow: hidden;
+    /* 내부 요소가 튀어나오는 것을 숨기기 */
+}
+
+/* 섹션 내부 좌우 패딩 */
+section .inner {
+    padding: 0 var(--padX);
+}
+
+/* 타이틀 영역 */
+section .inner .tit {
+    width: 100%;
+    padding: 16.8rem 5.587% 16.8rem;
+    border-bottom: 1px solid var(--line);
+    cursor: default;
+    /* 드래그/클릭 느낌 줄이기 */
+}
+
+/* 큰 제목: 처음엔 아래로 내려가 있고 투명 -> JS로 active 붙으면 등장 애니메이션 */
+section .inner .tit h3 {
+    margin-bottom: 2.0rem;
+    font-size: 12.0rem;
+    font-weight: 600;
+    line-height: 13.0rem;
+    transition: transform .6s, opacity .6s;
+    transform: translateY(4.0rem);
+    opacity: 0;
+}
+
+/* 소제목(설명 텍스트)도 동일 방식 */
+section .inner .tit p {
+    color: var(--muted);
+    font-size: 2.4rem;
+    font-weight: 300;
+    transition: transform .6s, opacity .6s;
+    transform: translateY(4.0rem);
+    opacity: 0;
+}
+
+/* JS에서 .active 붙었을 때 제자리+불투명 */
+section .inner .tit h3.active,
+section .inner .tit p.active {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* ===== 리스트 그리드(PC: 3열) ===== */
+section .inner .list_wrap {
+    display: flex;
+    /* 자식 ul들을 가로로 배치 */
+    margin-bottom: 16.8rem;
+    border-bottom: 1px solid var(--line);
+}
+
+/* 각 ul이 1/3씩 차지 */
+section .inner .list_wrap>ul {
+    width: 33.333%;
+    font-size: 0;
+    /* 이미지/inline 요소 간 공백 문제 회피 목적(현재는 큰 영향 없음) */
+}
+
+/* 마지막 ul 제외하고 세로 구분선 */
+section .inner .list_wrap>ul:not(:last-child) {
+    border-right: 1px solid var(--line);
+}
+
+/* ul 안의 li 패딩 */
+section .inner .list_wrap>ul>li {
+    padding: 8.0rem 8.0rem 0;
+}
+
+/* 마지막 li는 아래 패딩도 주기 */
+section .inner .list_wrap>ul>li:last-child {
+    padding: 8.0rem 8.0rem;
+}
+
+/* ===== 썸네일 영역 ===== */
+section .inner .list_wrap>ul>li .thumbnail {
+    position: relative;
+    /* ::before(View) 위치 기준 */
+    margin-bottom: 2.0rem;
+    background-color: #000;
+    /* 호버 시 이미지 투명해지면 뒤가 검정으로 보이게 */
+    overflow: hidden;
+    /* 확대 시 잘라내기 */
+}
+
+/* 썸네일 이미지: 호버 시 확대/투명 */
+section .inner .list_wrap>ul>li .thumbnail img {
+    width: 100%;
+    cursor: pointer;
+    transition: transform .5s, opacity .5s;
+}
+
+section .inner .list_wrap>ul>li .thumbnail:hover img {
+    opacity: 0.2;
+    transform: scale(1.06);
+}
+
+/* 호버 시 중앙에 View 버튼 느낌의 텍스트 */
+section .inner .list_wrap>ul>li .thumbnail:hover::before {
+    content: 'View';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 9;
+    transform: translate(-50%, -50%);
+    width: 16.8rem;
+    height: 6.4rem;
+    border-radius: 999px;
+    border: 1px solid #fff;
+    font-size: 2.4rem;
+    font-weight: 500;
+    color: #fff;
+    text-align: center;
+    line-height: 6.4rem;
+}
+
+/* ===== 텍스트 설명(dl) ===== */
+section .inner .list_wrap>ul>li dl {
+    cursor: default;
+    position: relative;
+    /* 날짜 span absolute 기준 */
+}
+
+/* 날짜(오른쪽 아래 고정) */
+section .inner .list_wrap>ul>li dl span {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 2.0rem;
+}
+
+/* 제목(dt) */
+section .inner .list_wrap>ul>li dl dt {
+    font-size: 2.8rem;
+    font-weight: 500;
+    line-height: 4.2rem;
+}
+
+/* 설명(dd) */
+section .inner .list_wrap>ul>li dl dd {
+    font-size: 2.0rem;
+    line-height: 3.0rem;
+    display: inline-block;
+}
+
+/* ===== 상세 팝업(오버레이) ===== */
+.detailPage {
+    position: fixed;
+    inset: 0;
+    /* top/right/bottom/left:0 */
+    z-index: var(--popupZ);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: rgba(0, 0, 0, 0.9);
+    /* 어두운 배경 */
+    opacity: 0;
+    visibility: hidden;
+    /* 화면에서 숨김 */
+    pointer-events: none;
+    /* 클릭도 막기(숨긴 상태) */
+    transition: opacity .2s ease;
+}
+
+/* JS에서 .active 붙이면 표시 */
+.detailPage.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* ===== 팝업 내부 Swiper 박스 ===== */
+.detailPage_slide_wrap {
+    position: relative;
+    overflow: hidden;
+    /* 슬라이드 영역 밖은 잘림 */
+    width: min(84.0rem, 92vw);
+    height: min(84.0rem, 82vh);
+    margin: 0 auto;
+}
+
+/* Swiper wrapper 내부 슬라이드 세로 중앙 맞춤 */
+.detailPage_slide_wrap .swiper-wrapper {
+    align-items: center;
+}
+
+/* 슬라이드 1장: 중앙 정렬 */
+.detailPage .detailPage_slide_wrap .swiper-wrapper .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 팝업 이미지 크기: 박스 안에 최대한 맞추되 비율 유지 */
+.detailPage img {
+    width: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* ===== Swiper 화살표 버튼 ===== */
+.detailPage .swiper-button-next,
+.detailPage .swiper-button-prev {
+    color: #fff;
+    /* 기본 색 흰색 */
+    mix-blend-mode: difference;
+    /* 이미지 위에서 대비를 강하게 보여주기 */
+}
+
+/* 왼쪽/오른쪽 위치 조정 */
+.detailPage .swiper-button-prev {
+    left: 2.0rem;
+    right: auto;
+}
+
+.detailPage .swiper-button-next {
+    right: 2.0rem;
+    left: auto;
+}
+
+/* =========================
+   반응형: 태블릿/모바일(<=1024)
+========================= */
+@media (max-width: 1024px) {
+    header {
+        justify-content: flex-start;
+        width: 100%;
+        left: 0;
+        transform: none;
+
+        border-left: none;
+        border-right: none;
+
+        height: auto;
+        /* 내용에 따라 자동 */
+        padding: 12px 16px;
+    }
+
+    header>div:first-of-type {
+        width: 100%;
+        flex: 1;
+        justify-content: space-between;
+        /* 로고 왼쪽, 햄버거 오른쪽 */
+    }
+
+    /* 햄버거 버튼 표시 */
+    .mui {
+        margin-left: auto;
+        display: block;
+    }
+
+    /* 메뉴를 풀스크린 패널로 만들기 */
+    .menu {
+        pointer-events: none;
+        /* 닫힌 상태에서 클릭 못 하게 */
+        position: fixed;
+        inset: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        transform: translateX(100%);
+        /* 오른쪽 밖으로 숨김 */
+        transition: transform .25s ease;
+        z-index: 9998;
+    }
+
+    /* header.nav-open이면 메뉴 패널이 화면 안으로 */
+    header.nav-open .menu {
+        transform: translateX(0);
+        pointer-events: auto;
+    }
+
+    /* 모바일 메뉴 목록은 세로 */
+    .menu ul {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    /* 모바일에서 1차 메뉴는 항상 테두리 */
+    .menu>ul>li {
+        border: 1px solid #000;
+    }
+
+    /* ✅ 모바일: 서브메뉴는 hover가 아니라 click(open)으로 열기 */
+    .has-sub .sub {
+        position: static;
+        /* fixed 해제 */
+        transform: none;
+        width: auto;
+
+        height: auto;
+        overflow: visible;
+
+        display: none;
+        /* 기본 숨김 -> .open이면 표시 */
+        border: 1px solid #000;
+        border-radius: 14px;
+        padding: 12px;
+        margin-top: 10px;
+    }
+
+    /* has-sub에 open 클래스가 붙으면 표시 */
+    .has-sub.open .sub {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+}
+
+/* =========================
+   반응형: 모바일(<=768)
+========================= */
+@media screen and (max-width: 768px) {
+    html {
+        font-size: 50%;
+        /* rem 기준을 더 줄여서 전체 글자/간격 축소 */
+    }
+
+    header {
+        padding: 0;
+    }
+
+    header>div {
+        position: relative;
+        padding: 2.4rem 0.8rem;
+    }
+
+    header>div h1 {
+        font-size: 2em;
+        width: 40%;
+        line-height: 1;
+    }
+
+    /* 리스트 1열로 */
+    section .inner {
+        padding: 0 3.0rem;
+    }
+
+    section .inner .tit {
+        padding: 12.0rem 5.587% 12.0rem;
+    }
+
+    section .inner .tit h3 {
+        font-size: 7.2rem;
+    }
+
+    /* 3열 -> 세로 스택 */
+    section .inner .list_wrap {
+        flex-direction: column;
+        margin-bottom: 12.0rem;
+    }
+
+    section .inner .list_wrap>ul {
+        width: 100%;
+    }
+
+    section .inner .list_wrap>ul:not(:last-child) {
+        border: none;
+        /* 세로 구분선 제거 */
+    }
+
+    section .inner .list_wrap>ul>li {
+        padding: 7.2rem 4.0rem 7.2rem;
+        border-top: 1px solid var(--line);
+    }
+
+    section .inner .list_wrap>ul>li:last-child {
+        padding: 7.2rem 4.0rem;
+    }
+
+    section .inner .list_wrap>ul:first-child>li:first-child {
+        border-top: none;
+        /* 맨 첫 줄은 위 구분선 제거 */
+    }
+}
+
+/* =========================
+   서브메뉴 띄우기 수정(모바일 subbar)
+========================= */
+
+/* (선택) JS가 header 높이를 못 잡았을 때 사용할 기본값 */
+:root {
+    --headerH: 90px;
+}
+
+/* ✅ subpage 모바일: 햄버거를 열지 않아도 서브바를 항상 노출 */
+@media (max-width: 1024px) {
+    body.subpage .subbar {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: var(--headerH);
+        /* header 높이 아래에 붙도록 */
+        z-index: 9998;
+        background: #fff;
+        border-bottom: 1px solid #000;
+
+        height: 60px;
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
+    }
+
+    /* 복제된 ul.sub가 기존 fixed 스타일을 갖고 있으니 여기서 강제 리셋 */
+    body.subpage .subbar .sub {
+        position: static !important;
+        top: auto !important;
+        left: auto !important;
+        transform: none !important;
+
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+
+        display: flex !important;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 14px;
+
+        padding: 0 !important;
+        border-bottom: 0 !important;
+        background: transparent !important;
+    }
+
+    /* subbar 안의 링크 스타일 */
+    body.subpage .subbar .sub a {
+        font-family: 'Noto Sans KR', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        font-size: 14px;
+        padding: 6px 8px;
+        text-transform: none;
+        letter-spacing: 0;
+    }
+
+    /* ✅ 원래 햄버거 메뉴 안의 서브는 중복 방지로 숨김(원하면 삭제 가능) */
+    body.subpage .menu .has-sub .sub {
+        display: none !important;
+    }
+
+    /* ✅ 고정 header + 고정 subbar 만큼 컨텐츠 내려주기 */
+    body.subpage section {
+        padding-top: calc(var(--headerH) + 60px);
+    }
+}
+
+/* 데스크탑에서는 subbar 숨김(PC는 원래 fixed sub bar 사용) */
+@media (min-width: 1025px) {
+    body.subpage .subbar {
+        display: none;
+    }
+}
