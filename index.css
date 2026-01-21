@@ -540,22 +540,11 @@ body.nav-open {
     overflow: hidden;
 }
 
-/* slide3만 살짝 다른 사이즈 유지 */
-#slide3 .ceterImg div {
-    margin: 0 0 60px 0;
-    width: 640px;
-    height: auto;
-}
 
 .ceterImg img {
     margin-top: 60px;
     width: 30vw;
     transition: all 0.5s;
-}
-
-#slide3 .ceterImg img {
-    margin-top: 100px;
-    width: 25vw;
 }
 
 .ceterImg div:hover img {
@@ -1086,6 +1075,7 @@ body.nav-open {
     .contactWrap div:last-of-type {
         border-left: none;
         border-top: var(--border);
+
         margin-top: 20px;
         padding-top: 40px;
     }
@@ -1160,6 +1150,7 @@ body.nav-open {
     /* 양 옆 80px 그리드 때문에 답답하면(선택) */
     section {
         grid-template-columns: 1fr;
+        ma
     }
 
     section>div[aria-hidden="true"] {
