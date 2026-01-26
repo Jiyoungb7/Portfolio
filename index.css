@@ -552,6 +552,25 @@ body.nav-open {
     transform: scale(1.1);
 }
 
+#slide3 .ceterImg {
+    display: flex;
+    justify-content: center;
+}
+
+#slide3 .ceterImg div {
+    width: auto;
+    margin: 0 auto;
+    padding-top: 80px;
+}
+
+#slide3 .ceterImg img {
+    width: auto;
+    max-width: 420px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+}
+
 /* typo 방지: scale 속성 대신 transform 사용(기존 시각 동일) */
 
 .centerText p {
@@ -976,16 +995,6 @@ body.nav-open {
         margin-top: 32px;
     }
 
-    #slide3 .ceterImg div {
-        width: min(520px, 100%);
-        margin: 16px auto 0;
-    }
-
-    #slide3 .ceterImg img {
-        width: 100% !important;
-        margin-top: 0;
-    }
-
     .slick-prev,
     .slick-next {
         width: 52px;
@@ -1093,16 +1102,16 @@ body.nav-open {
     #slide3 .ceterImg div {
         display: flex;
         justify-content: center;
+        padding-top: 0px;
     }
 
     #slide3 .ceterImg a {
         display: block;
+                padding-bottom: 50px;
     }
 
     #slide3 .ceterImg img {
-        display: block;
-        margin: 20px auto 0;
-        width: min(92vw, 520px) !important;
+        max-width: 340px;
     }
 }
 
