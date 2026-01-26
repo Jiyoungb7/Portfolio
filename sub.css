@@ -492,6 +492,21 @@ section .inner .list_wrap>ul>li dl dd {
   left: auto;
 }
 
+/* 스크롤X */
+.detailPage_slide_wrap.no-scroll .swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detailPage_slide_wrap.no-scroll img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
 /* 반응형 */
 @media (max-width: 1024px) {
   header {
